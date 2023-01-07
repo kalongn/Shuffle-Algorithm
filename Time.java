@@ -9,7 +9,6 @@ public class Time {
     public Time(int minutes, int seconds) {
         setTime(0, minutes, seconds);
         updateTimeMaxHours();
-
     }
 
     public Time(int hours, int minutes, int seconds) {
@@ -67,16 +66,20 @@ public class Time {
     }
 
     private void updateTimeMaxHours() {
-        int minutesSecondsArr[] = timeConvert(seconds);
-        seconds = minutesSecondsArr[0];
-        minutes += minutesSecondsArr[1];
-        int hoursMinutesArr[] = timeConvert(minutes);
-        minutes = hoursMinutesArr[0];
-        hours += hoursMinutesArr[1];
+        int resultTimeConvertArray[] = timeConvert(seconds);
+        seconds = resultTimeConvertArray[0];
+        minutes += resultTimeConvertArray[1];
+        resultTimeConvertArray = timeConvert(minutes);
+        minutes = resultTimeConvertArray[0];
+        hours += resultTimeConvertArray[1];
     }
 
     public String toString() {
         return "" + hours + " hours " + minutes + " minutes " + seconds + " seconds.";
+    }
+
+    public String toShortHandString() {
+        return "" + hours + ":" + minutes + ":" + seconds;
     }
 
     // TestCode
@@ -89,6 +92,10 @@ public class Time {
         Time overAllTestThree = new Time(1, 120, 33);
         System.out.println(secondsTestOne + "\n" + secondsTestTwo + "\n" + secondsTestThree);
         System.out.println(overAllTestOne + " \n" + overAllTestTwo + "\n" + overAllTestThree);
+        System.out.println(secondsTestOne.toShortHandString() + "\n" + secondsTestTwo.toShortHandString() + "\n"
+                + secondsTestThree.toShortHandString());
+        System.out.println(overAllTestOne.toShortHandString() + " \n" + overAllTestTwo.toShortHandString() + "\n"
+                + overAllTestThree.toShortHandString());
         try {
             Time secondsExceptionTest = new Time(-1);
             System.out.println(secondsExceptionTest);
