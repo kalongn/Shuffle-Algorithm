@@ -185,7 +185,17 @@ public class Time {
      */
     @Override
     public String toString() {
-        return "" + hours + " hours " + minutes + " minutes " + seconds + " seconds.";
+        String returnString = "";
+        if (seconds != 0) {
+            returnString += seconds + " sec";
+        }
+        if (minutes != 0) {
+            returnString = minutes + " min " + returnString;
+        }
+        if (hours != 0) {
+            returnString = hours + " hr " + returnString;
+        }
+        return returnString;
     }
 
     /**
@@ -193,7 +203,11 @@ public class Time {
      *         and seconds.
      */
     public String toShortHandString() {
-        return "" + hours + ":" + minutes + ":" + seconds;
+        String returnString = minutes + ":" + seconds;
+        if (hours != 0) {
+            returnString = hours + ":" + returnString;
+        }
+        return returnString;
     }
 
     // TestCode
