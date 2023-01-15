@@ -181,7 +181,8 @@ public class Time {
 
     /**
      * @return the Time object in a single line displaying hours, minutes and
-     *         seconds.
+     *         seconds. If any time unit is 0, that specific time unit will not be
+     *         displayed.
      */
     @Override
     public String toString() {
@@ -200,7 +201,7 @@ public class Time {
 
     /**
      * @return the time object ina single line short hand displayng hours, minutes
-     *         and seconds.
+     *         and seconds. If hours is 0, it will not be displayed.
      */
     public String toShortHandString() {
         String returnString = minutes + ":" + seconds;
