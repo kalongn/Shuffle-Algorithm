@@ -22,9 +22,13 @@ public class Single {
      * Artist of this Single and the Release Year of this Single.
      * 
      * @param name
+     *                    Represent the name of the Single object.
      * @param songs
+     *                    Represent the songs of the Single object.
      * @param artist
+     *                    Represent the artist of the Single object.
      * @param releaseYear
+     *                    Represent the release year of the Single object.
      */
     public Single(String name, Song[] songs, Artist artist, int releaseYear) {
         this.name = name;
