@@ -187,6 +187,23 @@ public class Time {
     }
 
     /**
+     * This method return a new Time by adding the two param Time objects.
+     * 
+     * @param timeOne
+     *                Time object one to be added.
+     * @param timeTwo
+     *                Time object two to be added.
+     * @return the sum of the 2 Time object, has been adjusted to the correct unit
+     *         of Time.
+     */
+    public static Time timeAddition(Time timeOne, Time timeTwo) {
+        Time sum = new Time(timeOne.getHours() + timeTwo.getHours(), timeOne.getMinutes() + timeTwo.getMinutes(),
+                timeOne.getSeconds() + timeTwo.getSeconds());
+        sum.updateTimeMaxHours();
+        return sum;
+    }
+
+    /**
      * @return the Time object in a single line displaying hours, minutes and
      *         seconds. If any time unit is 0, that specific time unit will not be
      *         displayed.
@@ -250,5 +267,6 @@ public class Time {
         } catch (IllegalArgumentException ex) {
             System.out.println("hours Exception Passed");
         }
+        System.out.println(timeAddition(overAllTestOne, overAllTestTwo));
     }
 }
