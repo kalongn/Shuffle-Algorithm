@@ -73,6 +73,8 @@ public class Time {
 
     /**
      * @param hours hours to set for the Time object.
+     * @exception IllegalArgumentException Thrown if hours is set to a negative
+     *                                     value.
      */
     public void setHours(int hours) throws IllegalArgumentException {
         if (isUnitOfTimeNegative(hours)) {
@@ -90,6 +92,9 @@ public class Time {
 
     /**
      * @param minutes minutes to set for the Time object.
+     * @exception IllegalArgumentException Thrown if minutes is set
+     *                                     to a negative
+     *                                     value.
      */
     public void setMinutes(int minutes) throws IllegalArgumentException {
         if (isUnitOfTimeNegative(minutes)) {
@@ -101,12 +106,14 @@ public class Time {
     /**
      * @return the seconds of the Time object.
      */
-    public int getSeconds() throws IllegalArgumentException {
+    public int getSeconds() {
         return seconds;
     }
 
     /**
      * @param seconds seconds to set for the Time object.
+     * @exception IllegalArgumentException Thrown if seconds is set to a negative
+     *                                     value.
      */
     public void setSeconds(int seconds) {
         if (isUnitOfTimeNegative(seconds)) {
