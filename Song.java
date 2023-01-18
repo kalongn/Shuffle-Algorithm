@@ -16,6 +16,7 @@ public class Song {
     private ExtendedPlay songExtendedPlay;
     private Single songSingle;
     private String[] genres;
+    private Artist artist;
 
     /**
      * Create a Song object with various field, such as the name of the song, the
@@ -27,6 +28,8 @@ public class Song {
      *                         Represent the name of the song.
      * @param bpm
      *                         Represnet the beat per minute of the song.
+     * @param artist
+     *                         Represent the artist of the song.
      * @param plays
      *                         Represent the amount of plays this song have (or as a
      *                         way to measure popularity).
@@ -48,10 +51,11 @@ public class Song {
      * @param genres
      *                         Represent all the genres this song fall under.
      */
-    public Song(String name, int bpm, long plays, Time songLength, boolean isExplicit, Album songAlbum,
+    public Song(String name, int bpm, Artist artist, long plays, Time songLength, boolean isExplicit, Album songAlbum,
             ExtendedPlay songExtendedPlay, Single songSingle, String[] genres) {
         this.name = name;
         this.setBpm(bpm);
+        this.artist = artist;
         this.setPlays(plays);
         this.songLength = songLength;
         this.isExplicit = isExplicit;
@@ -91,6 +95,20 @@ public class Song {
             throw new IllegalArgumentException("BPM of the song cannot less then or equal to 0.");
         }
         this.bpm = bpm;
+    }
+
+    /**
+     * @return the artist of the Song object.
+     */
+    public Artist getArtist() {
+        return artist;
+    }
+
+    /**
+     * @param artist artist to set for the Song object.
+     */
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     /**
@@ -210,6 +228,7 @@ public class Song {
         if (isExplicit) {
             returnStr += " E";
         }
+        returnStr += " " + artist.toString();
         if (getSongSingle() != null) {
             returnStr += " " + getSongSingle();
         } else if (getSongExtendedPlay() != null) {
