@@ -104,4 +104,21 @@ public class Song {
     public void setGenres(String[] genres) {
         this.genres = genres;
     }
+
+    public String toString() {
+        String returnStr = getName();
+        if (isExplicit) {
+            returnStr += " E";
+        }
+        if (getSongSingle() != null) {
+            returnStr += " " + getSongSingle();
+        } else if (getSongExtendedPlay() != null) {
+            returnStr += " " + getSongExtendedPlay();
+        } else {
+            returnStr += " " + getSongAlbum();
+        }
+        returnStr += " " + getPlays() + " " + getSongLength();
+        return returnStr;
+    }
+    
 }
