@@ -5,7 +5,7 @@
  * that is apart of this single, total length of the single, the artist
  * of the single and the releaseYear of this album.
  * 
- * @author Ka_Long_Ngai 01/15/2023
+ * @author Ka_Long_Ngai 01/18/2023
  */
 
 public class Single {
