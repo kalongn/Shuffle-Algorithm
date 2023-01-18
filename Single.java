@@ -4,12 +4,15 @@ public class Single {
     private Song[] songs;
     private Time lengthOfSongs;
     private Artist artist;
+    private int releaseYear;
 
-    public Single(String name, Song[] songs, Time lengthOfSongs, Artist artist) {
+
+    public Single(String name, Song[] songs, Time lengthOfSongs, Artist artist, int releaseYear) {
         this.name = name;
         this.songs = songs;
         this.lengthOfSongs = lengthOfSongs;
         this.artist = artist;
+        this.releaseYear = releaseYear;
     }
 
     public Song[] getSongs() {
@@ -44,9 +47,17 @@ public class Single {
         this.name = name;
     }
 
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
     @Override
     public String toString() {
-        String returnString = this.getName() + "\n------------------------------------------------\n";
+        String returnString = this.getName() + ", " + this.getReleaseYear() + "\n------------------------------------------------\n";
         for (Song song : songs) {
             returnString += song.getName() + "\n";
         }
