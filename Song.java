@@ -40,7 +40,8 @@ public class Song {
      * @param genres
      *                   Represent all the genres this song fall under.
      */
-    public Song(String name, int bpm, Artist[] artists, long plays, Time songLength, boolean isExplicit, String[] genres) {
+    public Song(String name, int bpm, Artist[] artists, long plays, Time songLength, boolean isExplicit,
+            String[] genres) {
         this.name = name;
         this.setBpm(bpm);
         this.artists = artists;
@@ -50,7 +51,7 @@ public class Song {
         this.songCollection = null;
         this.genres = genres;
 
-        for(Artist artist : artists) {
+        for (Artist artist : artists) {
             artist.addSong(this);
         }
     }
@@ -185,19 +186,19 @@ public class Song {
     public String toString() {
         String returnStr = getName();
         if (isExplicit) {
-            returnStr += " E ";
+            returnStr += "| |E| |";
         } else {
-            returnStr+= " ";
+            returnStr += "| || |";
         }
-        for(Artist artist : getArtist()) {
-            returnStr+= artist.getArtistName() + ", ";
+        for (Artist artist : getArtist()) {
+            returnStr += artist.getArtistName() + ", ";
         }
-        returnStr = returnStr.substring(0, returnStr.length()-2);
+        returnStr = "|" + returnStr.substring(0, returnStr.length() - 2);
         if (this.getSongCollection() != null) {
-            returnStr += " " + getSongCollection().getName();
+            returnStr += "|" + getSongCollection().getName();
         }
-        returnStr += " " + getPlays() + " " + getSongLength();
-        return returnStr;
+        returnStr += "|" + getPlays() + "|" + getSongLength();
+        return returnStr + "|";
     }
 
 }
