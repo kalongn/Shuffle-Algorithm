@@ -235,38 +235,4 @@ public class Time {
         return returnString;
     }
 
-    // TestCode
-    public static void main(String[] args) {
-        Time secondsTestOne = new Time(30);
-        Time secondsTestTwo = new Time(119);
-        Time secondsTestThree = new Time(3661);
-        Time overAllTestOne = new Time(1000, 93);
-        Time overAllTestTwo = new Time(199, 129102, 23);
-        Time overAllTestThree = new Time(1, 120, 33);
-        System.out.println(secondsTestOne + "\n" + secondsTestTwo + "\n" + secondsTestThree);
-        System.out.println(overAllTestOne + " \n" + overAllTestTwo + "\n" + overAllTestThree);
-        System.out.println(secondsTestOne.toShortHandString() + "\n" + secondsTestTwo.toShortHandString() + "\n"
-                + secondsTestThree.toShortHandString());
-        System.out.println(overAllTestOne.toShortHandString() + " \n" + overAllTestTwo.toShortHandString() + "\n"
-                + overAllTestThree.toShortHandString());
-        try {
-            Time secondsExceptionTest = new Time(-1);
-            System.out.println(secondsExceptionTest);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("Seconds Exception Passed");
-        }
-        try {
-            Time minutesExceptionTest = new Time(-1, 0);
-            System.out.println(minutesExceptionTest);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("minutes Exception Passed");
-        }
-        try {
-            Time hoursExceptionTest = new Time(-1, 0);
-            System.out.println(hoursExceptionTest);
-        } catch (IllegalArgumentException ex) {
-            System.out.println("hours Exception Passed");
-        }
-        System.out.println(timeAddition(overAllTestOne, overAllTestTwo));
-    }
 }
