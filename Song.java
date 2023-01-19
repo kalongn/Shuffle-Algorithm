@@ -9,7 +9,7 @@ public class Song {
 
     private String name;
     private int bpm;
-    private Artist artist;
+    private Artist[] artists;
     private long plays;
     private Time songLength;
     private boolean isExplicit;
@@ -23,35 +23,36 @@ public class Song {
      * and the genres of the song.
      * 
      * @param name
-     *                       Represent the name of the song.
+     *                   Represent the name of the song.
      * @param bpm
-     *                       Represnet the beat per minute of the song.
+     *                   Represnet the beat per minute of the song.
      * @param artist
-     *                       Represent the artist of the song.
+     *                   Represent the artist of the song.
      * @param plays
-     *                       Represent the amount of plays this song have (or as a
-     *                       way to measure popularity).
+     *                   Represent the amount of plays this song have (or as a
+     *                   way to measure popularity).
      * @param songLength
-     *                       Represent the length fo the song using the Time
-     *                       Class.
+     *                   Represent the length fo the song using the Time
+     *                   Class.
      * @param isExplicit
-     *                       Determine whether the song contain explicit lyrics or
-     *                       message.
-     * @param songCollection
-     *                       Indicate what type of songCollection this song is in.
+     *                   Determine whether the song contain explicit lyrics or
+     *                   message.
      * @param genres
-     *                       Represent all the genres this song fall under.
+     *                   Represent all the genres this song fall under.
      */
-    public Song(String name, int bpm, Artist artist, long plays, Time songLength, boolean isExplicit,
-            SongCollection songCollection, String[] genres) {
+    public Song(String name, int bpm, Artist[] artists, long plays, Time songLength, boolean isExplicit, String[] genres) {
         this.name = name;
         this.setBpm(bpm);
-        this.artist = artist;
+        this.artists = artists;
         this.setPlays(plays);
         this.songLength = songLength;
         this.isExplicit = isExplicit;
-        this.songCollection = songCollection;
+        this.songCollection = null;
         this.genres = genres;
+
+        for(Artist artist : artists) {
+            artist.addSong(this);
+        }
     }
 
     /**
@@ -89,15 +90,15 @@ public class Song {
     /**
      * @return the artist of the Song object.
      */
-    public Artist getArtist() {
-        return artist;
+    public Artist[] getArtist() {
+        return artists;
     }
 
     /**
      * @param artist artist to set for the Song object.
      */
-    public void setArtist(Artist artist) {
-        this.artist = artist;
+    public void setArtist(Artist[] artists) {
+        this.artists = artists;
     }
 
     /**
@@ -184,9 +185,17 @@ public class Song {
     public String toString() {
         String returnStr = getName();
         if (isExplicit) {
-            returnStr += " E";
+            returnStr += " E ";
+        } else {
+            returnStr+= " ";
         }
-        returnStr += " " + getArtist().toString() + " " + getSongCollection().getName();
+        for(Artist artist : getArtist()) {
+            returnStr+= artist.getArtistName() + ", ";
+        }
+        returnStr = returnStr.substring(0, returnStr.length()-2);
+        if (this.getSongCollection() != null) {
+            returnStr += " " + getSongCollection().getName();
+        }
         returnStr += " " + getPlays() + " " + getSongLength();
         return returnStr;
     }

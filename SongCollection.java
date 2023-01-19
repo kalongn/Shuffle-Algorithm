@@ -45,6 +45,10 @@ public class SongCollection {
         this.artist = artist;
         this.releaseYear = releaseYear;
         this.typeOfSongCollection = typeOfSongCollection;
+
+        for(Song song : songs) {
+            song.setSongCollection(this);
+        }
     }
 
     /**
@@ -213,7 +217,7 @@ public class SongCollection {
         String returnString = this.getName() + ", " + this.typeOfSongCollectionToString() + ", " + this.getReleaseYear()
                 + "\n------------------------------------------------\n";
         for (Song song : songs) {
-            returnString += song.getName() + "\n";
+            returnString += song.toString() + "\n";
         }
         returnString += "------------------------------------------------\n" + getLengthOfSongs();
         return returnString;
