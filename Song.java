@@ -9,14 +9,12 @@ public class Song {
 
     private String name;
     private int bpm;
+    private Artist artist;
     private long plays;
     private Time songLength;
     private boolean isExplicit;
-    private Album songAlbum;
-    private ExtendedPlay songExtendedPlay;
-    private Single songSingle;
+    private SongCollection songCollection;
     private String[] genres;
-    private Artist artist;
 
     /**
      * Create a Song object with various field, such as the name of the song, the
@@ -25,43 +23,34 @@ public class Song {
      * and the genres of the song.
      * 
      * @param name
-     *                         Represent the name of the song.
+     *                       Represent the name of the song.
      * @param bpm
-     *                         Represnet the beat per minute of the song.
+     *                       Represnet the beat per minute of the song.
      * @param artist
-     *                         Represent the artist of the song.
+     *                       Represent the artist of the song.
      * @param plays
-     *                         Represent the amount of plays this song have (or as a
-     *                         way to measure popularity).
+     *                       Represent the amount of plays this song have (or as a
+     *                       way to measure popularity).
      * @param songLength
-     *                         Represent the length fo the song using the Time
-     *                         Class.
+     *                       Represent the length fo the song using the Time
+     *                       Class.
      * @param isExplicit
-     *                         Determine whether the song contain explicit lyrics or
-     *                         message.
-     * @param songAlbum
-     *                         Represent which Album is this song apart of (a null
-     *                         value indicate not apart of Album).
-     * @param songExtendedPlay
-     *                         Represent which EP is this song apart of (a null
-     *                         value indicate not apart of EP).
-     * @param songSingle
-     *                         Represent which single is this song apart of (a null
-     *                         value indicate not apart of single).
+     *                       Determine whether the song contain explicit lyrics or
+     *                       message.
+     * @param songCollection
+     *                       Indicate what type of songCollection this song is in.
      * @param genres
-     *                         Represent all the genres this song fall under.
+     *                       Represent all the genres this song fall under.
      */
-    public Song(String name, int bpm, Artist artist, long plays, Time songLength, boolean isExplicit, Album songAlbum,
-            ExtendedPlay songExtendedPlay, Single songSingle, String[] genres) {
+    public Song(String name, int bpm, Artist artist, long plays, Time songLength, boolean isExplicit,
+            SongCollection songCollection, String[] genres) {
         this.name = name;
         this.setBpm(bpm);
         this.artist = artist;
         this.setPlays(plays);
         this.songLength = songLength;
         this.isExplicit = isExplicit;
-        this.songAlbum = songAlbum;
-        this.songExtendedPlay = songExtendedPlay;
-        this.songSingle = songSingle;
+        this.songCollection = songCollection;
         this.genres = genres;
     }
 
@@ -158,48 +147,17 @@ public class Song {
     }
 
     /**
-     * @return the Album the Song object is apart of (Null indicate it is not apart
-     *         of an album).
+     * @return the songCollection of this Song object.
      */
-    public Album getSongAlbum() {
-        return songAlbum;
+    public SongCollection getSongCollection() {
+        return songCollection;
     }
 
     /**
-     * @param songAlbum Album of the song to set for the Song object.
+     * @param songCollection the songCollection to set for the Song object.
      */
-    public void setSongAlbum(Album songAlbum) {
-        this.songAlbum = songAlbum;
-    }
-
-    /**
-     * @return the EP the Song object is apart of (Null indicate it is not apart of
-     *         an EP).
-     */
-    public ExtendedPlay getSongExtendedPlay() {
-        return songExtendedPlay;
-    }
-
-    /**
-     * @param songExtendedPlay EP of the song to set for the Song object.
-     */
-    public void setSongExtendedPlay(ExtendedPlay songExtendedPlay) {
-        this.songExtendedPlay = songExtendedPlay;
-    }
-
-    /**
-     * @return the Single the Song object is apart of (Null indicate it is not apart
-     *         of a Single).
-     */
-    public Single getSongSingle() {
-        return songSingle;
-    }
-
-    /**
-     * @param songSingle Single of the song to set for the Song object.
-     */
-    public void setSongSingle(Single songSingle) {
-        this.songSingle = songSingle;
+    public void setSongCollection(SongCollection songCollection) {
+        this.songCollection = songCollection;
     }
 
     /**
@@ -228,14 +186,7 @@ public class Song {
         if (isExplicit) {
             returnStr += " E";
         }
-        returnStr += " " + artist.toString();
-        if (getSongSingle() != null) {
-            returnStr += " " + getSongSingle();
-        } else if (getSongExtendedPlay() != null) {
-            returnStr += " " + getSongExtendedPlay();
-        } else {
-            returnStr += " " + getSongAlbum();
-        }
+        returnStr += " " + getArtist().toString() + " " + getSongCollection().getName();
         returnStr += " " + getPlays() + " " + getSongLength();
         return returnStr;
     }
