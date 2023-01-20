@@ -100,9 +100,10 @@ public class Artist {
                 indexOfMin = i;
             }
         }
-        if (songToBeAdd.getPlays() > popularSongs[indexOfMin].getPlays()) {
-            popularSongs[indexOfMin] = songToBeAdd;
+        if (songToBeAdd.getPlays() < popularSongs[indexOfMin].getPlays()) {
+            return;
         }
+        popularSongs[indexOfMin] = songToBeAdd;
         this.sortPopularSongs();
     }
 
