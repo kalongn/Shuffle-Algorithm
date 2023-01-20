@@ -54,5 +54,6 @@ public class Test {
             System.out.println(songs1_6[i]);
         }
         System.out.println("\n" + testEP);
+        System.out.println("\n" + artist1);
     }
 }
