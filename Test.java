@@ -48,12 +48,17 @@ public class Test {
                 new String[] { "J-pop", "Melo" });
         Song song6 = new Song("Then", 141, new Artist[] { artist1 }, 425813, new Time(1, 1), false,
                 new String[] { "J-pop", "Melo" });
+        Song song7 = new Song("TEST", 150, new Artist[] { artist2 }, 10000000000L, new Time(100, 100), false,
+                new String[] { "J-pop", "Melo" });
         Song[] songs1_6 = new Song[] { song1, song2, song3, song4, song5, song6 };
         SongCollection testEP = new SongCollection("Polarity", songs1_6, artist1, 2017, 1);
         for (int i = 0; i < songs1_6.length; i++) {
             System.out.println(songs1_6[i]);
         }
+        SongCollection testSingle = new SongCollection("TESTING", new Song[] { song7 }, artist2, 2023, 0);
         System.out.println("\n" + testEP);
         System.out.println("\n" + artist1);
+        System.out.println("\n" + testSingle);
+        System.out.println("\n" + artist2);
     }
 }
