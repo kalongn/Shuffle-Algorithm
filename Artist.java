@@ -178,7 +178,7 @@ public class Artist {
     @Override
     public String toString() {
         String returnStr = this.getArtistName() + ", " + this.getTotalPlays()
-                + "\nPopular Songs\n------------------------------------------------\n";
+                + "\n\nPopular Songs\n------------------------------------------------\n";
         for (int i = 0; i < POPULARSONGSARRLENGTH; i++) {
             if (popularSongs[i] != null) {
                 returnStr += popularSongs[i].toString() + "\n";
@@ -186,7 +186,13 @@ public class Artist {
         }
         returnStr += "------------------------------------------------\n\nDiscography\n------------------------------------------------\n";
         for (int i = 0; i < this.getSongsReleases().size(); i++) {
-            returnStr += "\n" + this.getSongsReleases().get(i).toString() + "\n";
+            returnStr += "\n" + this.getSongsReleases().get(i).toString() + "\n\n";
+        }
+        returnStr += "------------------------------------------------\n\nAppeared On\n------------------------------------------------";
+        for(int i = 0; i < this.getSongs().size(); i++) {
+            if(!this.getSongs().get(i).getArtists()[0].getArtistName().equals(this.getArtistName())) {
+                returnStr+= "\n" + this.getSongs().get(i).toString();
+            }
         }
         return returnStr + "\n------------------------------------------------";
     }
