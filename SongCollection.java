@@ -49,6 +49,7 @@ public class SongCollection {
         for (Song song : songs) {
             song.setSongCollection(this);
         }
+        this.artist.addToSongReleases(this);
     }
 
     /**
