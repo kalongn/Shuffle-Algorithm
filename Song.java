@@ -26,8 +26,9 @@ public class Song {
      *                   Represent the name of the song.
      * @param bpm
      *                   Represnet the beat per minute of the song.
-     * @param artist
-     *                   Represent the artist of the song.
+     * @param artists
+     *                   Represent the artists of the song. The First Artist (index
+     *                   0) of this variable will be the primary Artist.
      * @param plays
      *                   Represent the amount of plays this song have (or as a
      *                   way to measure popularity).
@@ -91,14 +92,14 @@ public class Song {
     /**
      * @return the artist of the Song object.
      */
-    public Artist[] getArtist() {
+    public Artist[] getArtists() {
         return artists;
     }
 
     /**
      * @param artist artist to set for the Song object.
      */
-    public void setArtist(Artist[] artists) {
+    public void setArtists(Artist[] artists) {
         this.artists = artists;
     }
 
@@ -190,7 +191,7 @@ public class Song {
         } else {
             returnStr += "| || |";
         }
-        for (Artist artist : getArtist()) {
+        for (Artist artist : getArtists()) {
             returnStr += artist.getArtistName() + ", ";
         }
         returnStr = "|" + returnStr.substring(0, returnStr.length() - 2);
