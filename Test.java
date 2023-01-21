@@ -5,6 +5,9 @@ public class Test {
         Time secondsTestTwo = new Time(119);
         Time secondsTestThree = new Time(3661);
         Time overAllTestOne = new Time(1000, 93);
+        Time overAllTestOneClone = (Time) overAllTestOne.clone();
+        System.out.println(overAllTestOne == overAllTestOneClone);
+        System.out.println(overAllTestOne.equals(overAllTestOneClone));
         Time overAllTestTwo = new Time(199, 129102, 23);
         Time overAllTestThree = new Time(1, 120, 33);
         System.out.println(secondsTestOne + "\n" + secondsTestTwo + "\n" + secondsTestThree);
