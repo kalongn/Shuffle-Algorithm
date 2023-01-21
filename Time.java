@@ -1,10 +1,12 @@
+import java.io.Serializable;
+
 /**
  * This Time Class allowing us to create a Time object. With the maximum time
  * unit being hours and minimum time unit being seconds.
  * 
  * @author Ka_Long_Ngai 01/14/2023
  */
-public class Time {
+public class Time implements Cloneable, Serializable {
 
     private int hours, minutes, seconds;
 
@@ -207,6 +209,7 @@ public class Time {
      * @return the Time object in a single line displaying hours, minutes and
      *         seconds. If any time unit is 0, that specific time unit will not be
      *         displayed.
+     * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
@@ -233,6 +236,37 @@ public class Time {
             returnString = hours + ":" + returnString;
         }
         return returnString;
+    }
+
+    /**
+     * Creates a Deep copy of this Time object and return it as an Object.
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Object clone() {
+        try {
+            return (Time) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            return new Time(this.hours, this.minutes, this.seconds);
+        }
+    }
+
+    /**
+     * Check whether this Time object is equal to the Object param by checking all
+     * the fields.
+     * 
+     * @param obj the object to be check for equals with this Time object reference.
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Time)) {
+            return false;
+        }
+        Time other = (Time) obj;
+        return this.hours == other.getHours() && this.minutes == other.getMinutes()
+                && this.seconds == other.getSeconds();
     }
 
 }
