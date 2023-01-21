@@ -15,7 +15,7 @@ public class Playlist extends ArrayList<Song> {
         }
         Song temp = this.get(index1);
         this.set(index1, this.get(index2));
-        this.set(index2, this.get(index1));
+        this.set(index2, temp);
     }
 
     public void absoluteShuffle() {
