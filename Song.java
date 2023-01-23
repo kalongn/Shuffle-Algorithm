@@ -189,7 +189,7 @@ public class Song {
      * @param song2
      *              the second Song object to be compare.
      * @return
-     *         A double value range from [0, 1] represent a percentage of similarly
+     *         A double value range from [0, 1] represent a percentage of similarly.
      */
     public static double compareGenres(Song song1, Song song2) {
         HashSet<String> combinedGenres = new HashSet<>();
@@ -202,6 +202,23 @@ public class Song {
         int totalGenresSize = song1.getGenres().length + song2.getGenres().length;
         return (double) Math.round((double) (totalGenresSize - combinedGenres.size()) / combinedGenres.size() * 100)
                 / 100;
+    }
+
+    /**
+     * This method calculate the similarlity between the bpm of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same bpm.
+     * 
+     * @param song1
+     *              the first Song objext to be compare.
+     * @param song2
+     *              the second Song object to be compare.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of similarly.
+     */
+    public static double compareBPM(Song song1, Song song2) {
+        return (double) Math.round((1 - ((double) Math.abs(song1.getBpm() - song2.getBpm())
+                / ((double) (song1.getBpm() + song2.getBpm()) / 2))) * 100) / 100;
     }
 
     /**
