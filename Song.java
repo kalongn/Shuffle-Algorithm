@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * This Song Class allowing us to create a Song object. Contain mutiple field
  * that would be important to the shuffling algorithm that will be implemented
@@ -175,6 +177,31 @@ public class Song {
      */
     public void setGenres(String[] genres) {
         this.genres = genres;
+    }
+
+    /**
+     * This method calculate the similarlity between the genres of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share all the same genres.
+     * 
+     * @param song1
+     *              the first Song objext to be compare.
+     * @param song2
+     *              the second Song object to be compare.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of similarly
+     */
+    public static double compareGenres(Song song1, Song song2) {
+        HashSet<String> combinedGenres = new HashSet<>();
+        for (String genre : song1.getGenres()) {
+            combinedGenres.add(genre);
+        }
+        for (String genre : song2.getGenres()) {
+            combinedGenres.add(genre);
+        }
+        int totalGenresSize = song1.getGenres().length + song2.getGenres().length;
+        return (double) Math.round((double) (totalGenresSize - combinedGenres.size()) / combinedGenres.size() * 100)
+                / 100;
     }
 
     /**
