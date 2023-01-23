@@ -63,5 +63,8 @@ public class Test {
         System.out.println("\n" + artist1);
         System.out.println("\n" + testSingle);
         System.out.println("\n" + artist2);
+
+        System.out.println(Song.compareGenres(song1, song2));
+        System.out.println(Song.compareBPM(song1, song2));
     }
 }
