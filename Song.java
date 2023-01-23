@@ -180,6 +180,18 @@ public class Song {
     }
 
     /**
+     * Round double to the hundreth place.
+     * 
+     * @param number
+     *               Input double variable.
+     * @return
+     *         the input double round to hundreth place.
+     */
+    private static double roundtoHundreth(double number) {
+        return (double) Math.round(number * 100) / 100;
+    }
+
+    /**
      * This method calculate the similarlity between the genres of the 2 songs
      * param, will return a decimal between 0 and 1 where 0 is not similar at all
      * and 1 is that both songs share all the same genres.
@@ -200,8 +212,7 @@ public class Song {
             combinedGenres.add(genre);
         }
         int totalGenresSize = song1.getGenres().length + song2.getGenres().length;
-        return (double) Math.round((double) (totalGenresSize - combinedGenres.size()) / combinedGenres.size() * 100)
-                / 100;
+        return roundtoHundreth((double) (totalGenresSize - combinedGenres.size()) / combinedGenres.size());
     }
 
     /**
@@ -217,8 +228,8 @@ public class Song {
      *         A double value range from [0, 1] represent a percentage of similarly.
      */
     public static double compareBPM(Song song1, Song song2) {
-        return (double) Math.round((1 - ((double) Math.abs(song1.getBpm() - song2.getBpm())
-                / ((double) (song1.getBpm() + song2.getBpm()) / 2))) * 100) / 100;
+        return roundtoHundreth(1 - ((double) Math.abs(song1.getBpm() - song2.getBpm())
+                / ((double) (song1.getBpm() + song2.getBpm()) / 2)));
     }
 
     /**
