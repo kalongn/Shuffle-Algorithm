@@ -272,6 +272,7 @@ public class Song {
             if (artists.contains(i)) {
                 dupeArtists.add(i);
             }
+            artists.add(i);
         }
         if (dupeArtists.isEmpty()) {
             return 0.0;
@@ -280,7 +281,7 @@ public class Song {
             result += Artist.artistContributionValue(dupeArtists.get(i), artist1)
                     + Artist.artistContributionValue(dupeArtists.get(i), artist2) / 2 / (i + 1);
         }
-        return roundtoHundreth(result);
+        return roundtoHundreth(result / artists.size());
     }
 
     /**
