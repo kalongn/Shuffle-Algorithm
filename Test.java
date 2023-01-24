@@ -66,5 +66,6 @@ public class Test {
 
         System.out.println(Song.compareGenres(song1, song2));
         System.out.println(Song.compareBPM(song1, song2));
+        System.out.println(Song.compareArtist(song1, song2));
     }
 }
