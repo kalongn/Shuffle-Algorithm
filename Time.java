@@ -244,7 +244,7 @@ public class Time implements Cloneable, Serializable {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Object clone() {
+    protected Object clone() {
         try {
             return (Time) super.clone();
         } catch (CloneNotSupportedException ex) {
