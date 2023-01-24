@@ -192,7 +192,7 @@ public class Song {
     }
 
     /**
-     * This method calculate the similarlity between the genres of the 2 songs
+     * This method calculate the similarity between the genres of the 2 songs
      * param, will return a decimal between 0 and 1 where 0 is not similar at all
      * and 1 is that both songs share all the same genres.
      * 
@@ -201,7 +201,8 @@ public class Song {
      * @param song2
      *              the second Song object to be compare.
      * @return
-     *         A double value range from [0, 1] represent a percentage of similarly.
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
      */
     public static double compareGenres(Song song1, Song song2) {
         HashSet<String> combinedGenres = new HashSet<>();
@@ -216,7 +217,7 @@ public class Song {
     }
 
     /**
-     * This method calculate the similarlity between the bpm of the 2 songs
+     * This method calculate the similarity between the bpm of the 2 songs
      * param, will return a decimal between 0 and 1 where 0 is not similar at all
      * and 1 is that both songs share the same bpm.
      * 
@@ -225,11 +226,30 @@ public class Song {
      * @param song2
      *              the second Song object to be compare.
      * @return
-     *         A double value range from [0, 1] represent a percentage of similarly.
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
      */
     public static double compareBPM(Song song1, Song song2) {
         return roundtoHundreth(1 - ((double) Math.abs(song1.getBpm() - song2.getBpm())
                 / ((double) (song1.getBpm() + song2.getBpm()) / 2)));
+    }
+
+    public static double compareArtist(Song song1, Song song2) {
+        Artist[] artist1 = song1.getArtists();
+        Artist[] artist2 = song2.getArtists();
+        if (artist1[0].getArtistName().equalsIgnoreCase(artist2[0].getArtistName())) {
+            return roundtoHundreth(1);
+        }
+        return Math.max(compareArtistHelper(artist1, artist2), compareArtistHelper(artist2, artist1));
+    }
+
+    private static double compareArtistHelper(Artist[] artist1, Artist[] artist2) {
+        for (int i = 0; i < artist1.length; i++) {
+            if (artist1[i].getArtistName().equalsIgnoreCase(artist2[0].getArtistName())) {
+                return roundtoHundreth(0.5 / (artist1.length - 1));
+            }
+        }
+        return 0.0;
     }
 
     /**
