@@ -280,7 +280,7 @@ public class Song {
             result += Artist.artistContributionValue(dupeArtists.get(i), artist1)
                     + Artist.artistContributionValue(dupeArtists.get(i), artist2) / 2 / (i + 1);
         }
-        return result;
+        return roundtoHundreth(result);
     }
 
     /**
