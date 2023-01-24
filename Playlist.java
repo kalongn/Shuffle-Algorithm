@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Playlist extends ArrayList<Song> {
@@ -26,10 +25,6 @@ public class Playlist extends ArrayList<Song> {
         Song temp = this.get(index1);
         this.set(index1, this.get(index2));
         this.set(index2, temp);
-    }
-
-    private int randomInt(int min, int max) {
-        return min + (int) (Math.random() * ((max - min) + 1));
     }
 
     public void absoluteShuffle() {

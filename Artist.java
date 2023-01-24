@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 /**
  * This Artist Class allowing us to create a Artist object. This Artist class
  * contain crucial information of an artist. The Name, songs and collection of
@@ -183,11 +184,12 @@ public class Artist {
         for (Artist artist : artists) {
             totalPlays += artist.getTotalPlays();
         }
-        return Song.roundtoHundreth((double)targetArtist.getTotalPlays() / totalPlays);
+        return Song.roundtoHundreth((double) targetArtist.getTotalPlays() / totalPlays);
     }
 
     /**
      * @return the Artist object into a List of items that indicate by headers.
+     * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
@@ -211,6 +213,11 @@ public class Artist {
         return returnStr + "\n------------------------------------------------";
     }
 
+    /**
+     * @return True: Artist object is the same, false: Artist object is not the same
+     *         or the input is not an Artist object.
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Artist)) {
