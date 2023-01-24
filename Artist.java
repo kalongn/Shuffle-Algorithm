@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * This Artist Class allowing us to create a Artist object. This Artist class
  * contain crucial information of an artist. The Name, songs and collection of
@@ -173,6 +172,21 @@ public class Artist {
     }
 
     /**
+     * Precondition: targetArtist must exist within artists array.
+     * 
+     * @param targetArtist
+     * @param artists
+     * @return
+     */
+    public static double artistContributionValue(Artist targetArtist, Artist[] artists) {
+        long totalPlays = 0L;
+        for (Artist artist : artists) {
+            totalPlays += artist.getTotalPlays();
+        }
+        return Song.roundtoHundreth((double)targetArtist.getTotalPlays() / totalPlays);
+    }
+
+    /**
      * @return the Artist object into a List of items that indicate by headers.
      */
     @Override
@@ -189,11 +203,20 @@ public class Artist {
             returnStr += "\n" + this.getSongsReleases().get(i).toString() + "\n\n";
         }
         returnStr += "------------------------------------------------\n\nAppeared On\n------------------------------------------------";
-        for(int i = 0; i < this.getSongs().size(); i++) {
-            if(!this.getSongs().get(i).getArtists()[0].getArtistName().equals(this.getArtistName())) {
-                returnStr+= "\n" + this.getSongs().get(i).toString();
+        for (int i = 0; i < this.getSongs().size(); i++) {
+            if (!this.getSongs().get(i).getArtists()[0].getArtistName().equals(this.getArtistName())) {
+                returnStr += "\n" + this.getSongs().get(i).toString();
             }
         }
         return returnStr + "\n------------------------------------------------";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Artist)) {
+            return false;
+        }
+        Artist artist = (Artist) obj;
+        return this.getArtistName().equals(artist.getArtistName()) && this.getTotalPlays() == artist.getTotalPlays();
     }
 }

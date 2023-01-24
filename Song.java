@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -187,7 +188,7 @@ public class Song {
      * @return
      *         the input double round to hundreth place.
      */
-    private static double roundtoHundreth(double number) {
+    public static double roundtoHundreth(double number) {
         return (double) Math.round(number * 100) / 100;
     }
 
@@ -234,22 +235,52 @@ public class Song {
                 / ((double) (song1.getBpm() + song2.getBpm()) / 2)));
     }
 
+    /*
+     * public static double compareArtist(Song song1, Song song2) {
+     * Artist[] artist1 = song1.getArtists();
+     * Artist[] artist2 = song2.getArtists();
+     * if (artist1[0].getArtistName().equalsIgnoreCase(artist2[0].getArtistName()))
+     * {
+     * return roundtoHundreth(1);
+     * }
+     * return Math.max(compareArtistHelper(artist1, artist2),
+     * compareArtistHelper(artist2, artist1));
+     * }
+     * 
+     * private static double compareArtistHelper(Artist[] artist1, Artist[] artist2)
+     * {
+     * for (int i = 0; i < artist1.length; i++) {
+     * if (artist1[i].getArtistName().equalsIgnoreCase(artist2[0].getArtistName()))
+     * {
+     * return roundtoHundreth(0.5 / (artist1.length - 1));
+     * }
+     * }
+     * return 0.0;
+     * }
+     */
+
     public static double compareArtist(Song song1, Song song2) {
         Artist[] artist1 = song1.getArtists();
         Artist[] artist2 = song2.getArtists();
-        if (artist1[0].getArtistName().equalsIgnoreCase(artist2[0].getArtistName())) {
-            return roundtoHundreth(1);
+        HashSet<Artist> artists = new HashSet<>();
+        ArrayList<Artist> dupeArtists = new ArrayList<>();
+        double result = 0;
+        for (Artist i : artist1) {
+            artists.add(i);
         }
-        return Math.max(compareArtistHelper(artist1, artist2), compareArtistHelper(artist2, artist1));
-    }
-
-    private static double compareArtistHelper(Artist[] artist1, Artist[] artist2) {
-        for (int i = 0; i < artist1.length; i++) {
-            if (artist1[i].getArtistName().equalsIgnoreCase(artist2[0].getArtistName())) {
-                return roundtoHundreth(0.5 / (artist1.length - 1));
+        for (Artist i : artist2) {
+            if (artists.contains(i)) {
+                dupeArtists.add(i);
             }
         }
-        return 0.0;
+        if (dupeArtists.isEmpty()) {
+            return 0.0;
+        }
+        for (int i = 0; i < dupeArtists.size(); i++) {
+            result += Artist.artistContributionValue(dupeArtists.get(i), artist1)
+                    + Artist.artistContributionValue(dupeArtists.get(i), artist2) / 2 / (i + 1);
+        }
+        return result;
     }
 
     /**
