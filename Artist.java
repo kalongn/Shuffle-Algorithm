@@ -174,11 +174,21 @@ public class Artist implements Serializable {
     }
 
     /**
+     * This method return the percentage of totalPlay the <code>targetArtist</code>
+     * has in the totalPlay across an array of Artist in order to calculate how much
+     * does that specific artist contribute to the song popularity.
+     * 
+     * <br>
+     * <br>
      * Precondition: targetArtist must exist within artists array.
      * 
      * @param targetArtist
+     *                     the targetArtist to look for in this artists Array.
      * @param artists
+     *                     the array of artist object to calculate the totalPlays.
      * @return
+     *         a double value round up to 2 decimal places representing the
+     *         contribution value for the targetArtist.
      */
     public static double artistContributionValue(Artist targetArtist, Artist[] artists) {
         long totalPlays = 0L;
