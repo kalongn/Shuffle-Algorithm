@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -8,7 +9,7 @@ import java.util.HashSet;
  * 
  * @author Ka_Long_Ngai 01/15/2023
  */
-public class Song {
+public class Song implements Serializable {
 
     private String name;
     private int bpm;

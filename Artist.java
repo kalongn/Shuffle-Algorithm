@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * 
  * @author Ka_Long_Ngai 01/19/2023
  */
-public class Artist {
+public class Artist implements Serializable {
 
     private String artistName;
     private ArrayList<Song> songs;

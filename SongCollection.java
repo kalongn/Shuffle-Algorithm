@@ -1,3 +1,4 @@
+import java.io.Serializable;
 /**
  * This SongCollection Class allowing us to create a SongCollection object.
  * Contain mutiple field that would be important to the shuffling algorithm that
@@ -9,7 +10,7 @@
  * @author Ka_Long_Ngai 01/19/2023
  */
 
-public class SongCollection {
+public class SongCollection implements Serializable {
     private String name;
     private Song[] songs;
     private Time lengthOfSongs;
