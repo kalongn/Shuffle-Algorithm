@@ -260,6 +260,21 @@ public class Song implements Serializable {
      * }
      */
 
+    /**
+     * Compare the 2 songs to look for similar Artists between these 2 songs. Thie
+     * method return a double value that utilized the contribution value of the
+     * artist in each songs and averaging them as a way to indicate which artist the
+     * main driveforce for the popularity. If song share no similar artist, thie
+     * method return 0.0.
+     * 
+     * @param song1
+     *              The first song to be compare.
+     * @param song2
+     *              The second song to be compare.
+     * @return
+     *         a double value indicate the similaritys of the 2 song base on their
+     *         artists simialrity and their respective contribution value.
+     */
     public static double compareArtist(Song song1, Song song2) {
         Artist[] artist1 = song1.getArtists();
         Artist[] artist2 = song2.getArtists();
