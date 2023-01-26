@@ -65,20 +65,20 @@ public class Test {
         System.out.println("\n" + artist2);
 
         System.out.println("\nSimilarity Calculation testing");
-        //System.out.println(Song.compareGenres(song1, song2));
-        //System.out.println(Song.compareBPM(song1, song2));
-        //System.out.println(Song.compareArtist(song1, song2));
+        // System.out.println(Song.compareGenres(song1, song2));
+        // System.out.println(Song.compareBPM(song1, song2));
+        // System.out.println(Song.compareArtist(song1, song2));
         System.out.println(Song.compareSong(song1, song2));
 
         System.out.println("\n\nPlayList testing");
         Playlist testPlayList = new Playlist();
-        for(Song song : songs1_6) {
+        for (Song song : songs1_6) {
             testPlayList.enqueue(song);
         }
-        System.out.println(testPlayList);
+        System.out.println("\nOrigina Playlist\n" + testPlayList);
         testPlayList.absoluteShuffle();
-        System.out.println(testPlayList);
+        System.out.println("\nTrue RNG shuffle\n" + testPlayList);
         testPlayList = testPlayList.similaritySongShuffle(0, testPlayList);
-        System.out.println(testPlayList);
+        System.out.println("\nSimilarity Shuffle\n" + testPlayList);
     }
 }
