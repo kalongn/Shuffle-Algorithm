@@ -51,7 +51,7 @@ public class Test {
                 new String[] { "J-pop", "Melo" });
         Song song6 = new Song("Then", 141, new Artist[] { artist1 }, 425813, new Time(1, 1), false,
                 new String[] { "J-pop", "Melo" });
-        Song song7 = new Song("TEST", 150, new Artist[] { artist2 }, 10000000000L, new Time(100, 100), false,
+        Song song7 = new Song("TEST", 150, new Artist[] { artist2 }, 500000, new Time(100, 100), false,
                 new String[] { "J-pop", "Melo" });
         Song[] songs1_6 = new Song[] { song1, song2, song3, song4, song5, song6 };
         SongCollection testEP = new SongCollection("Polarity", songs1_6, artist1, 2017, 1);
@@ -64,8 +64,10 @@ public class Test {
         System.out.println("\n" + testSingle);
         System.out.println("\n" + artist2);
 
-        System.out.println(Song.compareGenres(song1, song2));
-        System.out.println(Song.compareBPM(song1, song2));
-        System.out.println(Song.compareArtist(song1, song2));
+        System.out.println("\nSimilarity Calculation testing");
+        //System.out.println(Song.compareGenres(song1, song2));
+        //System.out.println(Song.compareBPM(song1, song2));
+        //System.out.println(Song.compareArtist(song1, song2));
+        System.out.println(Song.compareSong(song1, song2));
     }
 }
