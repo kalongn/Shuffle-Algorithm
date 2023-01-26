@@ -69,5 +69,16 @@ public class Test {
         //System.out.println(Song.compareBPM(song1, song2));
         //System.out.println(Song.compareArtist(song1, song2));
         System.out.println(Song.compareSong(song1, song2));
+
+        System.out.println("\n\nPlayList testing");
+        Playlist testPlayList = new Playlist();
+        for(Song song : songs1_6) {
+            testPlayList.enqueue(song);
+        }
+        System.out.println(testPlayList);
+        testPlayList.absoluteShuffle();
+        System.out.println(testPlayList);
+        testPlayList = testPlayList.similaritySongShuffle(0, testPlayList);
+        System.out.println(testPlayList);
     }
 }
