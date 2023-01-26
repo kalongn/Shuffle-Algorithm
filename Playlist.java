@@ -43,9 +43,9 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
-     * This method will collect all the songCollection from each song, then shuffle
-     * the songCollection, then play everysong from those songCollection even if
-     * some songs are not apart of the playlist prior.
+     * This method will collect all the songCollection from each song and ignore
+     * duplicate., then shuffle the songCollection, then play everysong from those
+     * songCollection even if some songs are not apart of the playlist prior.
      */
     public void songCollectionShuffle() {
         HashSet<SongCollection> allSongCollectionsHS = new HashSet<SongCollection>();
@@ -68,26 +68,28 @@ public class Playlist extends ArrayList<Song> {
 
     public Playlist similaritySongShuffle(int beginIndex, Playlist playlist) {
 
-        //base case.
-        if(beginIndex + 4 > playlist.size() || beginIndex > playlist.size()) {
+        // base case.
+        if (beginIndex + 4 > playlist.size() || beginIndex > playlist.size()) {
             return playlist;
         }
 
-        //Select a random song
-        int randomInt = randomInt(beginIndex, playlist.size()-1);
+        // Select a random song
+        int randomInt = randomInt(beginIndex, playlist.size() - 1);
         if (randomInt == beginIndex) {
             beginIndex++;
         }
         Song selected = playlist.get(randomInt);
         playlist.remove(playlist.get(randomInt));
 
-        //calculate the similarity value from the randomly selected song to rest of the unselected playlist.
+        // calculate the similarity value from the randomly selected song to rest of the
+        // unselected playlist.
         ArrayList<Double> cvValue = new ArrayList<>();
         for (int i = beginIndex; i < playlist.size(); i++) {
             cvValue.add(Song.compareSong(selected, playlist.get(i)));
         }
 
-        //finding the top 3 song similar to the selected song and swapping them to the beginning of the queue;
+        // finding the top 3 song similar to the selected song and swapping them to the
+        // beginning of the queue;
         for (int i = 0; i < 3; i++) {
             double max = cvValue.get(0);
             int index = 0;
@@ -101,25 +103,25 @@ public class Playlist extends ArrayList<Song> {
             cvValue.set(index, -0.1);
         }
 
-        //add back the selected song.
+        // add back the selected song.
         playlist.add(beginIndex, selected);
 
-        //shuffle the 4 songs.
+        // shuffle the 4 songs.
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
         for (int i = beginIndex + 3; i > beginIndex; i--) {
             int rndIndex = rnd.nextInt(i + 1);
             swapSong(rndIndex, i);
         }
 
-        //recursively calling this and increment where the next method start.
+        // recursively calling this and increment where the next method start.
         return similaritySongShuffle(beginIndex + 4, playlist);
     }
 
     public String toString() {
         String returnStr = "This Playlist\n------------------------------------------------\n";
-        for(Song song : this) {
-            returnStr+= song.toString() + "\n";
+        for (Song song : this) {
+            returnStr += song.toString() + "\n";
         }
-        return returnStr+="------------------------------------------------";
+        return returnStr += "------------------------------------------------";
     }
 }
