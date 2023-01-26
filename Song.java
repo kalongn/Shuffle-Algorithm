@@ -301,6 +301,24 @@ public class Song implements Serializable {
     }
 
     /**
+     * This method return how similar between 2 songs using 3 other compare Method.
+     * Calculate them base on a percentage and return the final similarity value.
+     * 
+     * @param song1
+     *              The first song to be compare.
+     * @param song2
+     *              The second song to be compare.
+     * @return
+     *         A double value indicate how similar the 2 songs are.
+     */
+    public static double compareSong(Song song1, Song song2) {
+        double comparePartOne = compareGenres(song1, song2);
+        double comparePartTwo = compareBPM(song1, song2);
+        double comparePartThree = compareArtist(song1, song2);
+        return roundtoHundreth(.6 * comparePartOne + .3 * comparePartTwo + .1 * comparePartThree);
+    }
+
+    /**
      * @return the Song object in a single line displaying the song name, which
      *         album/EP/Single the song is apart of, the amount of plays the song
      *         have and its length.
