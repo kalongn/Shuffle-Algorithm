@@ -303,6 +303,11 @@ public class Song implements Serializable {
     /**
      * This method return how similar between 2 songs using 3 other compare Method.
      * Calculate them base on a percentage and return the final similarity value.
+     * <br>
+     * <br>
+     * Realistically, there should be more part into this equation and there should
+     * be more careful consideration of how much does each part of the equation
+     * matter.
      * 
      * @param song1
      *              The first song to be compare.
