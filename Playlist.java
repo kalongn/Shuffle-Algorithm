@@ -66,16 +66,15 @@ public class Playlist extends ArrayList<Song> {
         }
     }
 
-    public void similaritySongShuffle(int beginIndex, Playlist playlist) {
+    public Playlist similaritySongShuffle(int beginIndex, Playlist playlist) {
 
         //base case.
-        if (playlist.size() < 4) {
-            playlist.absoluteShuffle();
-            return;
+        if(beginIndex + 4 > playlist.size() || beginIndex > playlist.size()) {
+            return playlist;
         }
 
         //Select a random song
-        int randomInt = randomInt(beginIndex, playlist.size());
+        int randomInt = randomInt(beginIndex, playlist.size()-1);
         if (randomInt == beginIndex) {
             beginIndex++;
         }
@@ -113,6 +112,14 @@ public class Playlist extends ArrayList<Song> {
         }
 
         //recursively calling this and increment where the next method start.
-        similaritySongShuffle(beginIndex + 4, playlist);
+        return similaritySongShuffle(beginIndex + 4, playlist);
+    }
+
+    public String toString() {
+        String returnStr = "This Playlist\n------------------------------------------------\n";
+        for(Song song : this) {
+            returnStr+= song.toString() + "\n";
+        }
+        return returnStr+="------------------------------------------------";
     }
 }
