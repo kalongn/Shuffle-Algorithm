@@ -78,7 +78,7 @@ public class Test {
         System.out.println("\nOrigina Playlist\n" + testPlayList);
         testPlayList.absoluteShuffle();
         System.out.println("\nTrue RNG shuffle\n" + testPlayList);
-        testPlayList = testPlayList.similaritySongShuffle(0, testPlayList);
+        testPlayList.similaritySongShuffle(0);
         System.out.println("\nSimilarity Shuffle\n" + testPlayList);
     }
 }
