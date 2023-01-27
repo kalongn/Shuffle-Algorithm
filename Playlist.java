@@ -4,26 +4,69 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Playlist extends ArrayList<Song> {
 
+    /**
+     * Add the song to the end of the Playlist ArrayList (Queue).
+     * 
+     * @param song
+     *             The Song object to be added into this Playlist object.
+     */
     public void enqueue(Song song) {
         super.add(song);
     }
 
+    /**
+     * Remove the song at the beginning of the Playlist ArrayList (Queue).
+     * 
+     * @return
+     *         The song object that is being removed from this Playlist.
+     */
     public Song dequeue() {
         return super.remove(0);
     }
 
+    /**
+     * Generate a int value between this 2 param inclusively.
+     * 
+     * @param min
+     *            The minimum value you want this function to have a chance
+     *            generate.
+     * @param max
+     *            The maximum value you want this function to have a chance
+     *            generate.
+     * @return
+     *         the random int value.s
+     */
     private static int randomInt(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
-    public void addAllFromSongCollection(SongCollection collection) {
+    /**
+     * Add all the song from a songCollection object into this Playlist.
+     * 
+     * @param collection
+     *                   The songCollection object you want to add to this Playlist
+     *                   object.
+     */
+    private void addAllFromSongCollection(SongCollection collection) {
         for (Song song : collection.getSongs()) {
             enqueue(song);
         }
     }
 
+    /**
+     * Swap 2 Song object within this Playlist given the indexes of the 2 respective
+     * Song object.
+     * 
+     * @param index1
+     *               Index one for one of the Song object.
+     * @param index2
+     *               Index two for the other Song object.
+     * @throws IndexOutOfBoundsException
+     *                                   If either index is not within the size of
+     *                                   the Playlist object or negative value.s
+     */
     public void swapSong(int index1, int index2) throws IndexOutOfBoundsException {
-        if (index1 > this.size() - 1 || index2 > this.size() - 1) {
+        if (index1 > this.size() - 1 || index2 > this.size() - 1 || index1 < 0 || index2 < 0) {
             throw new IndexOutOfBoundsException();
         }
         Song temp = this.get(index1);
@@ -45,10 +88,11 @@ public class Playlist extends ArrayList<Song> {
 
     /**
      * This method will collect all the songCollection from each song and ignore
-     * duplicate., then shuffle the songCollection, then play every songs from those
+     * duplicate, then shuffle the songCollection, then play every songs from those
      * songCollection even if some songs are not apart of the playlist prior. This
      * is a very niche shuffling algorithm for listeners who want to enjoy the
-     * entire songCollection (Album, EP, Singles) as a whole randomly instead of song by song randomly.
+     * entire songCollection (Album, EP, Singles) as a whole randomly instead of
+     * song by song randomly.
      */
     public void songCollectionShuffle() {
         HashSet<SongCollection> allSongCollectionsHS = new HashSet<SongCollection>();
@@ -70,10 +114,26 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
-     * @param beginIndex
-     * @return
+     * This method initiate the recrusive method without the beginIndex required.
      */
-    public void similaritySongShuffle(int beginIndex) {
+    public void similaritySongShuffle() {
+        this.similaritySongShuffleHelper(0);
+    }
+
+    /**
+     * This is a recursive method which actually shuffle the entire playlist object
+     * base on the simiarlity value between the songs. This method currently
+     * randomly picked 1 songs out of the beginIndex and the length of the entire
+     * Playlist. Select the top 3 songs that is similar to it. Shuffle those 4 songs
+     * and put them back into the PlayList. Through this way, we are swapping songs
+     * while hopefully shuffle more "randomly" while maintaining an enjoyable
+     * listening section.
+     * 
+     * @param beginIndex
+     *                   The beginIndex to shuffle, the initial call will always be
+     *                   0.
+     */
+    private void similaritySongShuffleHelper(int beginIndex) {
         // base case.
         if (beginIndex + 4 > this.size() || beginIndex > this.size()) {
             return;
@@ -114,9 +174,13 @@ public class Playlist extends ArrayList<Song> {
             swapSong(rndIndex, i);
         }
         // recursively calling this and increment where the next method start.
-        similaritySongShuffle(beginIndex + 4);
+        similaritySongShuffleHelper(beginIndex + 4);
     }
 
+    /**
+     * @return the Playlist listed and all of it's song in a List format.
+     */
+    @Override
     public String toString() {
         String returnStr = "This Playlist\n------------------------------------------------\n";
         for (Song song : this) {
