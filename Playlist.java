@@ -12,7 +12,7 @@ public class Playlist extends ArrayList<Song> {
         return super.remove(0);
     }
 
-    private int randomInt(int min, int max) {
+    private static int randomInt(int min, int max) {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
@@ -32,7 +32,8 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
-     * As the name suggested, shuffle everysong randomly.
+     * This method shuffle entire playlist regardless of the statistic of the song.
+     * It is the most random in terms of a computer can do.
      */
     public void absoluteShuffle() {
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
@@ -44,8 +45,10 @@ public class Playlist extends ArrayList<Song> {
 
     /**
      * This method will collect all the songCollection from each song and ignore
-     * duplicate., then shuffle the songCollection, then play everysong from those
-     * songCollection even if some songs are not apart of the playlist prior.
+     * duplicate., then shuffle the songCollection, then play every songs from those
+     * songCollection even if some songs are not apart of the playlist prior. This
+     * is a very niche shuffling algorithm for listeners who want to enjoy the
+     * entire songCollection (Album, EP, Singles) as a whole randomly instead of song by song randomly.
      */
     public void songCollectionShuffle() {
         HashSet<SongCollection> allSongCollectionsHS = new HashSet<SongCollection>();
@@ -66,28 +69,28 @@ public class Playlist extends ArrayList<Song> {
         }
     }
 
-    public Playlist similaritySongShuffle(int beginIndex, Playlist playlist) {
-
+    /**
+     * @param beginIndex
+     * @return
+     */
+    public void similaritySongShuffle(int beginIndex) {
         // base case.
-        if (beginIndex + 4 > playlist.size() || beginIndex > playlist.size()) {
-            return playlist;
+        if (beginIndex + 4 > this.size() || beginIndex > this.size()) {
+            return;
         }
-
         // Select a random song
-        int randomInt = randomInt(beginIndex, playlist.size() - 1);
+        int randomInt = randomInt(beginIndex, this.size() - 1);
         if (randomInt == beginIndex) {
             beginIndex++;
         }
-        Song selected = playlist.get(randomInt);
-        playlist.remove(playlist.get(randomInt));
-
+        Song selected = this.get(randomInt);
+        this.remove(this.get(randomInt));
         // calculate the similarity value from the randomly selected song to rest of the
         // unselected playlist.
         ArrayList<Double> cvValue = new ArrayList<>();
-        for (int i = beginIndex; i < playlist.size(); i++) {
-            cvValue.add(Song.compareSong(selected, playlist.get(i)));
+        for (int i = beginIndex; i < this.size(); i++) {
+            cvValue.add(Song.compareSong(selected, this.get(i)));
         }
-
         // finding the top 3 song similar to the selected song and swapping them to the
         // beginning of the queue;
         for (int i = 0; i < 3; i++) {
@@ -99,22 +102,19 @@ public class Playlist extends ArrayList<Song> {
                     index = j;
                 }
             }
-            playlist.swapSong(beginIndex, index);
+            this.swapSong(beginIndex, index);
             cvValue.set(index, -0.1);
         }
-
         // add back the selected song.
-        playlist.add(beginIndex, selected);
-
+        this.add(beginIndex, selected);
         // shuffle the 4 songs.
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
         for (int i = beginIndex + 3; i > beginIndex; i--) {
             int rndIndex = rnd.nextInt(i + 1);
             swapSong(rndIndex, i);
         }
-
         // recursively calling this and increment where the next method start.
-        return similaritySongShuffle(beginIndex + 4, playlist);
+        similaritySongShuffle(beginIndex + 4);
     }
 
     public String toString() {
