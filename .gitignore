@@ -3,3 +3,5 @@ Features.txt
 SongDatas/
 APICall.sh
 links.txt
+.env
+node_modules/
