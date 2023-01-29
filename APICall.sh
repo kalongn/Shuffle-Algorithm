@@ -2,63 +2,53 @@
 
 Token=$(node fetchToken.js)
 
-case $1 in 
+typeOfAnalysis='tracks'
+URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$1
 
-  #tracks + audio-analysis
-  'tk')
-    typeOfAnalysis='tracks'
-    URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$2
+curl --request GET \
+  --url $URL \
+  --header 'Authorization: Bearer '$Token \
+  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
+#
+nameOfTrack=$(jq .name SongTempDatas/Song$typeOfAnalysis.JSON)
 
-    curl --request GET \
-      --url $URL \
-      --header 'Authorization: Bearer '$Token \
-      --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
-    #
-    nameOfTrack=$(jq .name SongTempDatas/Song$typeOfAnalysis.JSON)
-    "" > SongDatas/"$nameOfTrack".txt
+#Create the Song file
+"" > SongDatas/"$nameOfTrack".txt
 
-    echo 'Track Name: '$nameOfTrack >> "SongDatas/$nameOfTrack.txt"
+#Add the Track name into the Song file
+echo 'Track Name: '$nameOfTrack >> "SongDatas/$nameOfTrack.txt"
 
-    artistsLength=$(jq '.artists | length' SongTempDatas/Song$typeOfAnalysis.JSON)
-    for (( i=1 ; i<=$artistsLength; i++ ))
-    do
-      indexArr=$i-1
-      echo 'Artist '$i' Name: '$(jq .artists[$indexArr].name SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
-      echo 'Artist '$i' Id: '$(jq .artists[$indexArr].id SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
-    done
+#Add the Track ID into the Song file
+echo 'Track ID: '$(jq .id SongTempDatas/Song$typeOfAnalysis.JSON)
 
+#Add all the artists name, ID into this Song file.
+artistsLength=$(jq '.artists | length' SongTempDatas/Song$typeOfAnalysis.JSON)
+for (( i=1 ; i<=$artistsLength; i++ ))
+do
+  indexArr=$i-1
+  echo 'Artist '$i' Name: '$(jq .artists[$indexArr].name SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
+  echo 'Artist '$i' Id: '$(jq .artists[$indexArr].id SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
+done
 
+#Add the tracks popularity into the Song file.
+echo 'Track popularity: '$(jq .popularity SongTempDatas/Song$typeOfAnalysis.JSON)
 
+#Need To Start working from this part.
+typeOfAnalysis='albums'
+URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$2
+curl --request GET \
+  --url $URL \
+  --header 'Authorization: Bearer '$Token \
+  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
+#
 
-    typeOfAnalysis='audio-analysis'
-    URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$2
-    curl --request GET \
-      --url $URL \
-      --header 'Authorization: Bearer '$Token \
-      --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
-    #
-    exit 0
-  ;;
-
-  #artists
-  'at')
-    typeOfAnalysis='artists'
-  ;;
-
-  #albums
-  'ab')
-    typeOfAnalysis='albums'
-  ;;
-
-  #playlists
-  'pl')
-    typeOfAnalysis='playlists'
-  ;;
-
-  *)
-    echo "Not a Valid Input for API call (arguemnt 1)."
-    exit 1
-  ;;
-esac
+typeOfAnalysis='artists'
+URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$2
+curl --request GET \
+  --url $URL \
+  --header 'Authorization: Bearer '$Token \
+  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
+#
 
 exit 0
+
