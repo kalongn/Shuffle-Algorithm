@@ -15,8 +15,19 @@ case $1 in
       --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
     #
     nameOfTrack=$(jq .name SongTempDatas/Song$typeOfAnalysis.JSON)
-    touch SongDatas/"$nameOfTrack".txt
+    "" > SongDatas/"$nameOfTrack".txt
+
     echo 'Track Name: '$nameOfTrack >> "SongDatas/$nameOfTrack.txt"
+
+    artistsLength=$(jq '.artists | length' SongTempDatas/Song$typeOfAnalysis.JSON)
+    for (( i=1 ; i<=$artistsLength; i++ ))
+    do
+      indexArr=$i-1
+      echo 'Artist '$i' Name: '$(jq .artists[$indexArr].name SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
+      echo 'Artist '$i' Id: '$(jq .artists[$indexArr].id SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
+    done
+
+
 
 
     typeOfAnalysis='audio-analysis'
