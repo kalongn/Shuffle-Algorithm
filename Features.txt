@@ -5,3 +5,5 @@
       at the end of the script which hopefully reduce physical memory usage.
         - then use Java to create the appropriate object base on those JSON file
         - required Java to read JSON file.
+- Need to modify Track class / Artist class to use the value of popularity calculated by the Spotify API,
+  instead of using playsCount.
