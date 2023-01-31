@@ -1,6 +1,8 @@
 .DS_Store
-SongTempDatas
+SongTempDatas/
 SongDatas/
+ArtistsTempDatas/
+ArtistsDatas/
 links.txt
 .env
 node_modules/
