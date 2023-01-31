@@ -13,13 +13,13 @@ curl --request GET \
 nameOfTrack=$(jq .name SongTempDatas/Song$typeOfAnalysis.JSON)
 
 #Create the Song file
-"" > SongDatas/"$nameOfTrack".txt
+echo "" > SongDatas/"$nameOfTrack".txt
 
 #Add the Track name into the Song file
 echo 'Track Name: '$nameOfTrack >> "SongDatas/$nameOfTrack.txt"
 
 #Add the Track ID into the Song file
-echo 'Track ID: '$(jq .id SongTempDatas/Song$typeOfAnalysis.JSON)
+echo 'Track ID: '$(jq .id SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
 
 #Add all the artists name, ID into this Song file.
 artistsLength=$(jq '.artists | length' SongTempDatas/Song$typeOfAnalysis.JSON)
@@ -31,7 +31,7 @@ do
 done
 
 #Add the tracks popularity into the Song file.
-echo 'Track popularity: '$(jq .popularity SongTempDatas/Song$typeOfAnalysis.JSON)
+echo 'Track popularity: '$(jq .popularity SongTempDatas/Song$typeOfAnalysis.JSON) >> "SongDatas/$nameOfTrack.txt"
 
 #Need To Start working from this part.
 #typeOfAnalysis='albums'
