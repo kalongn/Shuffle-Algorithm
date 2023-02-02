@@ -85,12 +85,4 @@ echo 'Track Possible Genres: '$songGenres >> "SongDatas/$nameOfTrack.txt"
 #  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
 #
 
-#typeOfAnalysis='artists'
-#URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$2
-#curl --request GET \
-#  --url $URL \
-#  --header 'Authorization: Bearer '$Token \
-#  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
-#
-
 exit 0
