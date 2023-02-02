@@ -84,5 +84,6 @@ echo 'Track Possible Genres: '$songGenres >> "SongDatas/$nameOfTrack.txt"
 #  --header 'Authorization: Bearer '$Token \
 #  --header 'Content-Type: application/json' > SongTempDatas/Song$typeOfAnalysis.JSON
 #
+#Need to obtain the bpm from audio_analysis curl.
 
 exit 0
