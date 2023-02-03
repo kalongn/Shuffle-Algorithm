@@ -1,26 +1,40 @@
 #!/bin/bash
 
+trimQuotes() {
+  echo "${1:1:-1}"
+}
 
 returnToken() {
   node fetchToken.js
 }
 
-getPlaylistInfo() {
-  #$1 here == playList ID input.
+getPlaylistJSON() {
+  #$1 = token.
+  #$2 = playlist_id.
   URL='https://api.spotify.com/v1/playlists/'$2
   curl --request GET \
     --url $URL \
     --header 'Authorization: Bearer '$1 \
     --header 'Content-Type: application/json' >"API_Datas/PlaylistTempDatas/$2.JSON"
+  #
+
+  getCondensedDataFromPlayList "API_Datas/PlaylistTempDatas/$2.JSON"
+}
+
+getCondensedDataFromPlayList() {
+  #$1=filePath.
+  playlist_name=$(trimQuotes "$(jq .name $1)")
 }
 
 main() {
   Token=$(returnToken)
-  getPlaylistInfo $Token $1
+  getPlaylistJSON $Token $playlist_id
 }
 
+programname=$0
 playlist_id=$1
-main $playlist_id
+main 
+
 
 
 : << "COMMENT"
