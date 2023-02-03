@@ -1,10 +1,6 @@
 .DS_Store
-SongTempDatas/
-SongDatas/
-ArtistsTempDatas/
-ArtistsDatas/
 links.txt
 .env
 node_modules/
-AlbumsTempDatas/
-AlbumsDatas/
+API_Datas/
+Condensed_Datas
