@@ -1,4 +1,4 @@
 # Song Shuffling Algorithm using Java. <br>
 ## Being Worked on atm.  
 Inspired from a video by [gabi belle](https://www.youtube.com/@itsgabibelle) on [Why Spotify Playlists Never Truly Shuffle](https://youtu.be/OdLyKETk5o0)  
-This following link give me a sense of what information Spotify collected/calculated for a single song. [LINK](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis) <br>
+There are many useful datas I am collecting which I am directly using Spotify API for. For example, for [Artist](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artist), for [Track](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track) and [Track Audio Anaylsis](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis), for [Album](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-album) and for [Playlist](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist).   
