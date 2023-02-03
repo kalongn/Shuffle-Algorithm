@@ -24,6 +24,16 @@ trackID=$(jq .id "SongTempDatas/Song$typeOfAnalysis.JSON")
 trackID="${trackID:1:-1}"
 echo 'Track ID: '$trackID >>"SongDatas/$nameOfTrack.txt"
 
+#Getting the song Album information
+albumID=$(jq .album.id "SongTempDatas/Song$typeOfAnalysis.JSON")
+albumID="${albumID:1:-1}"
+URL='https://api.spotify.com/v1/albums/'$albumID
+curl --request GET \
+  --url $URL \
+  --header 'Authorization: Bearer '$Token \
+  --header 'Content-Type: application/json' > AlbumsTempDatas/AlbumTemp.JSON
+
+
 #Create Song Genres var
 songGenres=''
 
@@ -41,7 +51,6 @@ for ((i = 1; i <= $artistsLength; i++)); do
   #Create Artist File respective to this song.
   echo '' >"ArtistsTempDatas/$artistName.JSON"
   URL='https://api.spotify.com/v1/artists/'$artistID
-  echo $URL
   curl --request GET \
     --url $URL \
     --header 'Authorization: Bearer '$Token \
