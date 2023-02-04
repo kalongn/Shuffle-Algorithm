@@ -1,6 +1,7 @@
 #!/bin/bash
 
 trimQuotes() {
+  #remove "" from the beginning and end of a string.
   echo "${1:1:-1}"
 }
 
@@ -22,8 +23,27 @@ getPlaylistJSON() {
 }
 
 getCondensedDataFromPlayList() {
-  #$1=filePath.
+  #$1 = filePath.
   playlist_name=$(trimQuotes "$(jq .name $1)")
+  echo '' >"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
+  playlist_length=$(jq '.tracks.items | length' $1)
+  for ((i = 0; i < $playlist_length; i++)); do
+    song_id=$(trimQuotes "$(jq .tracks.items[$i].track.id $1)")
+    song_name=$(trimQuotes "$(jq .tracks.items[$i].track.name $1)")
+    getTrackJSON $Token $song_id
+    echo "$song_name: $song_id" >>"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
+  done
+}
+
+getTrackJSON() {
+  #1 = token.
+  #2 = id.
+  URL='https://api.spotify.com/v1/tracks/'$2
+
+  curl --request GET \
+    --url $URL \
+    --header 'Authorization: Bearer '$1 \
+    --header 'Content-Type: application/json' > "API_Datas/SongTempDatas/$2.JSON"
 }
 
 main() {
@@ -33,11 +53,9 @@ main() {
 
 programname=$0
 playlist_id=$1
-main 
+main
 
-
-
-: << "COMMENT"
+: <<"COMMENT"
 typeOfAnalysis='tracks'
 URL='https://api.spotify.com/v1/'$typeOfAnalysis'/'$1
 
