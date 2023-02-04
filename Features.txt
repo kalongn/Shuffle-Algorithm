@@ -1,9 +1,2 @@
-- Need to rethink about how I should utilized the JSON file I get from the api
-    - either do everythinging in bash and put them into either txt file
-    - or use bash to put them in a lighter JSON filer where all the resources I
-      need will be in a single JSON file. The much heavier JSON file will be deleted
-      at the end of the script which hopefully reduce physical memory usage.
-        - then use Java to create the appropriate object base on those JSON file
-        - required Java to read JSON file.
-- Need to modify Track class / Artist class to use the value of popularity calculated by the Spotify API,
-  instead of using playsCount.
+- May need to include some form of Artist information too just so that shuffle algorithm don't have 
+  cluster of the artists' songs.
