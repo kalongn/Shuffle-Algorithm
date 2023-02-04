@@ -34,7 +34,7 @@ public class Song {
         try {
             scanner = new Scanner(songFile);
         } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("Invalid songID");
+            throw new IllegalArgumentException("Invalid song ID.");
         }
 
         String trackName = scanner.nextLine();
