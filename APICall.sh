@@ -19,31 +19,42 @@ getPlaylistJSON() {
     --header 'Content-Type: application/json' >"API_Datas/PlaylistTempDatas/$2.JSON"
   #
 
-  getCondensedDataFromPlayList "API_Datas/PlaylistTempDatas/$2.JSON"
+  getCondensedDataFromPlayList "API_Datas/PlaylistTempDatas/$2.JSON" $2
 }
 
 getCondensedDataFromPlayList() {
   #$1 = filePath.
+  #$2 = playlist_id.
   playlist_name=$(trimQuotes "$(jq .name $1)")
-  echo '' >"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
+  echo "$playlist_name:$2" >"Condensed_Datas/PlaylistDatas/$2.txt"
   playlist_length=$(jq '.tracks.items | length' $1)
   for ((i = 0; i < $playlist_length; i++)); do
     song_id=$(trimQuotes "$(jq .tracks.items[$i].track.id $1)")
     song_name=$(trimQuotes "$(jq .tracks.items[$i].track.name $1)")
     getTrackJSON $Token $song_id
-    echo "$song_name: $song_id" >>"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
+    echo "$song_name" >>"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
   done
 }
 
 getTrackJSON() {
   #1 = token.
-  #2 = id.
+  #2 = track_id.
   URL='https://api.spotify.com/v1/tracks/'$2
 
   curl --request GET \
     --url $URL \
     --header 'Authorization: Bearer '$1 \
     --header 'Content-Type: application/json' > "API_Datas/SongTempDatas/$2.JSON"
+
+  getCondensedDataFromTrack "API_Datas/SongTempDatas/$2.JSON" $2
+}
+
+getCondensedDataFromTrack() {
+  #$1 = filePath
+  #$2 = track_od.
+  track_name=$(trimQuotes "$(jq .name $1)")
+  
+  echo "$track_name:$2" >"Condensed_Datas/SongDatas/$2.txt"
 }
 
 main() {
