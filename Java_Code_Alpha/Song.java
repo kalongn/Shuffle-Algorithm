@@ -28,7 +28,7 @@ public class Song {
      * @param songID
      * @return
      */
-    public static Song readFromtxt(String songID) {
+    public static Song readFromSongTxt(String songID) {
         File songFile = new File("./Condensed_Datas/SongDatas/" + songID + ".txt");
         Scanner scanner;
         try {
