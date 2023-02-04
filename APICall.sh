@@ -26,7 +26,7 @@ getCondensedDataFromPlayList() {
   #$1 = filePath.
   #$2 = playlist_id.
   playlist_name=$(trimQuotes "$(jq .name $1)")
-  echo "$playlist_name:$2" >"Condensed_Datas/PlaylistDatas/$2.txt"
+  echo "$playlist_name" >"Condensed_Datas/PlaylistDatas/$2.txt"
   playlist_length=$(jq '.tracks.items | length' $1)
   for ((i = 0; i < $playlist_length; i++)); do
     song_id=$(trimQuotes "$(jq .tracks.items[$i].track.id $1)")
@@ -44,17 +44,44 @@ getTrackJSON() {
   curl --request GET \
     --url $URL \
     --header 'Authorization: Bearer '$1 \
-    --header 'Content-Type: application/json' > "API_Datas/SongTempDatas/$2.JSON"
-
+    --header 'Content-Type: application/json' >"API_Datas/SongTempDatas/$2.JSON"
+  #
   getCondensedDataFromTrack "API_Datas/SongTempDatas/$2.JSON" $2
 }
 
 getCondensedDataFromTrack() {
   #$1 = filePath
-  #$2 = track_od.
+  #$2 = track_id.
   track_name=$(trimQuotes "$(jq .name $1)")
-  
-  echo "$track_name:$2" >"Condensed_Datas/SongDatas/$2.txt"
+  track_popularity=$(jq .popularity $1)
+  artists_length=$(jq '.artists | length' $1)
+  genres=""
+  for((j = 0; j < artists_length; j++)); do
+    artist_id=$(trimQuotes "$(jq .artists[$j].id $1)")
+    genres+=$(getApproximateGenres $Token $artist_id)
+  done
+
+  echo "$track_name" >"Condensed_Datas/SongDatas/$2.txt"
+  echo "$track_popularity" >>"Condensed_Datas/SongDatas/$2.txt"
+  echo "$genres" >>"Condensed_Datas/SongDatas/$2.txt"
+}
+
+getApproximateGenres() {
+  #$1 = token
+  #$2 = artist_id.
+  URL='https://api.spotify.com/v1/artists/'$2
+  curl --request GET \
+    --url $URL \
+    --header 'Authorization: Bearer '$1 \
+    --header 'Content-Type: application/json' >"API_Datas/ArtistsTempDatas/$2.JSON"
+  #
+
+  #Create Song Genres var
+  genresLength=$(jq '.genres | length' "API_Datas/ArtistsTempDatas/$2.JSON")
+  for((z=0; z < genresLength; z++)); do
+    addGenres=$(trimQuotes "$(jq .genres[$z] "API_Datas/ArtistsTempDatas/$2.JSON")")
+    echo $addGenres
+  done
 }
 
 main() {
