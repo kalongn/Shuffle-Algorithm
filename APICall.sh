@@ -34,7 +34,7 @@ getCondensedDataFromPlayList() {
     song_id=$(trimQuotes "$(jq .tracks.items[$i].track.id $1)")
     song_name=$(trimQuotes "$(jq .tracks.items[$i].track.name $1)")
     getTrackJSON $Token $song_id
-    echo "$song_name" >>"Condensed_Datas/PlaylistDatas/$playlist_name.txt"
+    echo "$song_name" >>"Condensed_Datas/PlaylistDatas/$2.txt"
   done
 }
 
