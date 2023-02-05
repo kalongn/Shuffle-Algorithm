@@ -117,7 +117,7 @@ public class Song {
         for (String i : this.getGenres()) {
             returnStr += "\n- " + i;
         }
-        returnStr += ".\n-------------------------------------------------------------";
+        returnStr += "\n-------------------------------------------------------------";
         return returnStr;
     }
 
