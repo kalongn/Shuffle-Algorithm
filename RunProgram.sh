@@ -5,5 +5,5 @@ getPlayListIDFromURL() {
   echo "${1:34:-20}"
 }
 
-playlist_id=$(getPLayListIDFromURL $1)
+playlist_id=$(getPlayListIDFromURL $1)
 bash "./APICall.sh" $playlist_id
