@@ -1,2 +1,0 @@
-- May need to include some form of Artist information too just so that shuffle algorithm don't have 
-  cluster of the artists' songs.
