@@ -1,0 +1,5 @@
+File_name is the ID of the playlist.
+<InsideFile>
+Playlist_Name (String)
+Rest of line are IDs of every songwithin this playlist. seperate by new line (String)
+</InsideFile>

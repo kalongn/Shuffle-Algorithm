@@ -1,0 +1,12 @@
+File_name is the ID of the track.
+<InsideFile>
+track_name (String)
+artists_name (String; each artist seperate by ",")
+track_popularity (int)
+track_bpm (double)
+track_valence (double)
+track_energy (double)
+track_danceability (double)
+track_acousticness (double)
+track_genres take up rest of the lines (All Strings)
+</InsideFile>
