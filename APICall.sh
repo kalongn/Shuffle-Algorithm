@@ -1,5 +1,10 @@
 #!/bin/bash
 
+getPlayListIDFromURL() {
+  #remove everything minus the 32 characters playlist ID.
+  echo "${1:34:-20}"
+}
+
 trimQuotes() {
   #remove "" from the beginning and end of a string.
   echo "${1:1:-1}"
@@ -129,7 +134,7 @@ main() {
 }
 
 #program begin here
-playlist_id=$1
+playlist_id=$(getPlayListIDFromURL $1)
 main
 
 exit 0
