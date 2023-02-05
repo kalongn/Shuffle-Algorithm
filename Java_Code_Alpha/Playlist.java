@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Playlist extends ArrayList<Song>{
-    
+public class Playlist extends ArrayList<Song> {
+
     private String playlistTitle;
 
     public Playlist(String playlistTitle) {
@@ -18,12 +18,12 @@ public class Playlist extends ArrayList<Song>{
         Scanner scanner;
         try {
             scanner = new Scanner(playListFile);
-        } catch (FileNotFoundException e ) {
+        } catch (FileNotFoundException e) {
             throw new IllegalArgumentException("Invalid playlist ID.");
         }
         String playlistTitle = scanner.nextLine();
         Playlist returnPlaylist = new Playlist(playlistTitle);
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             Song song = Song.readFromSongTxt(scanner.nextLine());
             returnPlaylist.add(song);
         }
@@ -37,9 +37,10 @@ public class Playlist extends ArrayList<Song>{
 
     @Override
     public String toString() {
-        String returnString = "-------------------------------------------------------------\n" + this.getPlaylistTitle();
-        for(Song i : this) {
-            returnString+="\n" + i;
+        String returnString = "-------------------------------------------------------------\n"
+                + this.getPlaylistTitle();
+        for (Song i : this) {
+            returnString += "\n" + i;
         }
         return returnString;
     }
