@@ -65,15 +65,19 @@ getCondensedDataFromTrack() {
   #get track possible genres.
   artists_length=$(jq '.artists | length' $1)
   genres=""
+  artists_name=""
   for ((j = 0; j < artists_length; j++)); do
     artist_id=$(trimQuotes "$(jq .artists[$j].id $1)")
+    artists_name+=$(trimQuotes "$(jq .artists[$j].name $1)")","
     genres+=$(getApproximateGenres $Token $artist_id)
   done
+  artists_name="${artists_name:0:-1}"
 
   #get track MISC infos.
   track_misc_info="$(getTrackMISC $Token $2)"
 
   echo "$track_name" >"Condensed_Datas/SongDatas/$2.txt"
+  echo "$artists_name" >>"Condensed_Datas/SongDatas/$2.txt"
   echo "$track_popularity" >>"Condensed_Datas/SongDatas/$2.txt"
   echo "$track_misc_info" >>"Condensed_Datas/SongDatas/$2.txt"
   echo "$genres" >>"Condensed_Datas/SongDatas/$2.txt"
