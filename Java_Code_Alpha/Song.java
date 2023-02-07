@@ -214,4 +214,45 @@ public class Song {
         returnStr += "\n-------------------------------------------------------------";
         return returnStr;
     }
+
+    /**
+     * Create a deep copy of this current Song object.
+     * 
+     * @see java.lang.Object#clone()
+     * @return
+     *         A new cloned version of this Song object.
+     */
+    @Override
+    protected Song clone() {
+        return new Song(this.getTrackName(), this.getArtistsName().clone(), this.getPopularity(), this.getBpm(),
+                this.getValence(), this.getEnergy(), this.getDanceability(), this.getAcousticness(),
+                new HashSet<String>(this.getGenres()));
+    }
+
+    /**
+     * Check whether the Song object and input share the same value.
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @return
+     *         A True or false to indiciate equivalence.
+     */
+    @Override
+    public boolean equals(Object arg) {
+        if (!(arg instanceof Song)) {
+            return false;
+        }
+        Song arg0 = (Song) arg;
+        if (arg0.getArtistsName().length != this.getArtistsName().length) {
+            return false;
+        }
+        for (int i = 0; i < this.getArtistsName().length; i++) {
+            if (!this.getArtistsName()[i].equals(arg0.getArtistsName()[i])) {
+                return false;
+            }
+        }
+        return this.getTrackName().equals(arg0.getTrackName()) && this.getPopularity() == arg0.getPopularity()
+                && this.getBpm() == arg0.getBpm() && this.getValence() == arg0.getValence()
+                && this.getEnergy() == arg0.getEnergy() && this.getDanceability() == arg0.getDanceability()
+                && this.getAcousticness() == arg0.getAcousticness() && this.getGenres().equals(arg0.getGenres());
+    }
 }
