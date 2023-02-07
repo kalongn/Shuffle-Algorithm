@@ -111,7 +111,7 @@ public class Song {
             genres.add(scanner.nextLine());
         }
         scanner.close();
-
+        songFile.delete();
         return new Song(trackName, artistsName, popularity, bpm, valence, energy, danceability, acousticness, genres);
     }
 

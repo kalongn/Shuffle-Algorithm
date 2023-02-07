@@ -54,6 +54,7 @@ public class Playlist extends ArrayList<Song> {
             returnPlaylist.add(song);
         }
         scanner.close();
+        playListFile.delete();
         return returnPlaylist;
     }
 
