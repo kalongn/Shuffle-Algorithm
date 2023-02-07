@@ -79,4 +79,42 @@ public class Playlist extends ArrayList<Song> {
         }
         return returnString;
     }
+
+    /**
+     * Create a deep copy of this Playlist Object.
+     * 
+     * @see java.util.ArrayList#clone()
+     * @return
+     *         A cloned this sPlaylist object.
+     */
+    @Override
+    public Playlist clone() {
+        Playlist clone = new Playlist(this.getPlaylistTitle());
+        for (Song i : this) {
+            clone.add(i.clone());
+        }
+        return clone;
+    }
+
+    /**
+     * Determine whether the playlist have the same Song object in the same order
+     * and each song same the same data.
+     * 
+     * @see java.util.AbstractList#equals(java.lang.Object)
+     * @return
+     *         True or false to indicate equivalence.
+     */
+    @Override
+    public boolean equals(Object arg0) {
+        if (!(arg0 instanceof Playlist)) {
+            return false;
+        }
+        Playlist other = (Playlist) arg0;
+        for (int i = 0; i < this.size(); i++) {
+            if (!this.get(i).equals(other.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
