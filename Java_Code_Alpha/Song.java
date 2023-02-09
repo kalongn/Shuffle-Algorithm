@@ -189,6 +189,115 @@ public class Song {
     }
 
     /**
+     * Round double to the thousand place.
+     * 
+     * @param number
+     *               Input double variable.
+     * @return
+     *         the input double round to thousand place.
+     */
+    public static double roundtoThousand(double number) {
+        return (double) Math.round(number * 1000) / 1000;
+    }
+
+    /**
+     * This method calculate the similarity value between 2 given double param, will
+     * return a decimal between 0 and 1 where value closer or approaching 0 is less
+     * similar. Value closer to 1 or approaching 1 is very similar if not the same.
+     * 
+     * @param one
+     *            the first double value.
+     * @param two
+     *            the second double value.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public static double compareTwoDouble(double one, double two) {
+        return roundtoThousand(1 - ((double) Math.abs(one - two) / ((double) (one + two / 2))));
+    }
+
+    /**
+     * This method calculate the similarity between the bpm of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same bpm.
+     * 
+     * @param otherSong
+     *                  the Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public double compareBPM(Song otherSong) {
+        return compareTwoDouble(this.getBpm(), otherSong.getBpm());
+    }
+
+    /**
+     * This method calculate the similarity between the Valence of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same Valence.
+     * 
+     * @param otherSong
+     *                  the Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public double compareValence(Song otherSong) {
+        return compareTwoDouble(this.getValence(), otherSong.getValence());
+    }
+
+    /**
+     * This method calculate the similarity between the Energy of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same Energy.
+     * 
+     * @param otherSong
+     *                  the Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public double compareEnergy(Song otherSong) {
+        return compareTwoDouble(this.getEnergy(), otherSong.getEnergy());
+    }
+
+    /**
+     * This method calculate the similarity between the Danceability of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same Danceability.
+     * 
+     * @param otherSong
+     *                  the Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public double compareDanceability(Song otherSong) {
+        return compareTwoDouble(this.getDanceability(), otherSong.getDanceability());
+    }
+
+    /**
+     * This method calculate the similarity between the Acousticness of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same Acousticness.
+     * 
+     * @param otherSong
+     *                  the Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0, 1] represent a percentage of
+     *         similarity.
+     */
+    public double compareAcousticness(Song otherSong) {
+        return compareTwoDouble(this.getAcousticness(), otherSong.getAcousticness());
+    }
+
+    /**
      * @see java.lang.Object#toString()
      * @return
      *         Every stats of this Song object will be added in a list format. Then
