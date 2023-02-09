@@ -218,6 +218,21 @@ public class Song {
     }
 
     /**
+     * This method calculate the similarity between the popularity of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share the same popularity.
+     * 
+     * @param otherSong
+     *                  The Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0,1] represent a percentage of similarity.
+     */
+    public double comparePopularity(Song otherSong) {
+        return compareTwoDouble((double) this.getPopularity(), (double) otherSong.getPopularity());
+    }
+
+    /**
      * This method calculate the similarity between the bpm of the 2 songs
      * param, will return a decimal between 0 and 1 where 0 is not similar at all
      * and 1 is that both songs share the same bpm.
