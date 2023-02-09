@@ -298,6 +298,32 @@ public class Song {
     }
 
     /**
+     * This method calculate the similarity between the genres of the 2 songs
+     * param, will return a decimal between 0 and 1 where 0 is not similar at all
+     * and 1 is that both songs share all the same genres. If this method return
+     * -1.0, this method is indicating the genres cannot be used for any valid
+     * comparison.
+     * 
+     * @param otherSong
+     *                  The Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0,1] represent a percentage of similarity.
+     *         If the value return is -1, it indiciate a failure to calculate valid
+     *         result since either this or otherSong does not have a valid Genres.
+     */
+    public double compareGenres(Song otherSong) {
+        if (this.getGenres().size() == 0 || otherSong.getGenres().size() == 0) {
+            return -1.0;
+        }
+        HashSet<String> combinedGenres = new HashSet<>();
+        combinedGenres.addAll(this.getGenres());
+        combinedGenres.addAll(otherSong.getGenres());
+        int totalGenresSize = this.getGenres().size() + otherSong.getGenres().size();
+        return roundtoThousand((double) (totalGenresSize - combinedGenres.size()) / combinedGenres.size());
+    }
+
+    /**
      * @see java.lang.Object#toString()
      * @return
      *         Every stats of this Song object will be added in a list format. Then
