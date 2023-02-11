@@ -339,6 +339,22 @@ public class Song {
     }
 
     /**
+     * This method sums up all the similarity value and takes the avg of all the
+     * similarity values.
+     * 
+     * @param otherSong
+     *                  The Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0,1] represent a percentage of similarity.
+     */
+    public double avgSimilarities(Song otherSong) {
+        return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
+                + this.compareDanceability(otherSong) + this.compareEnergy(otherSong) + this.compareGenres(otherSong)
+                + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
+    }
+
+    /**
      * @see java.lang.Object#toString()
      * @return
      *         Every stats of this Song object will be added in a list format. Then
