@@ -339,6 +339,36 @@ public class Song {
     }
 
     /**
+     * This method compare this reference Song object to the rest of the song inside
+     * playlist. The this reference Song must be apart of the playlist.
+     * 
+     * @param playlist
+     *                 the playlist which this reference Song is apart of.
+     * @return
+     *         a double[] with all the avg similarity values of comparing every
+     *         single other songs within that playlist. The index which after the
+     *         this reference Song appear in that playlist will be subtracted by 1.
+     * @exception IllegalArgumentException
+     *                                     Thrown when the playlist does not contain
+     *                                     this reference Song.
+     */
+    public double[] compareSongToRestPlaylist(Playlist playlist) throws IllegalArgumentException {
+        if (!playlist.contains(this)) {
+            throw new IllegalArgumentException("This song is not apart of this playlist.");
+        }
+        double[] value = new double[playlist.size() - 1];
+        int index = 0;
+        for (int i = 0; i < playlist.size(); i++) {
+            if (playlist.get(i).equals(this)) {
+                index--;
+                continue;
+            }
+            value[index] = this.avgSimilarities(playlist.get(i));
+        }
+        return value;
+    }
+
+    /**
      * This method sums up all the similarity value and takes the avg of all the
      * similarity values.
      * 
