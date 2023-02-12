@@ -379,6 +379,11 @@ public class Song {
      *         A double value range from [0,1] represent a percentage of similarity.
      */
     public double avgSimilarities(Song otherSong) {
+        if (this.compareGenres(otherSong) == -1.0) {
+            return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
+                    + this.compareDanceability(otherSong) + this.compareEnergy(otherSong)
+                    + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 6);
+        }
         return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
                 + this.compareDanceability(otherSong) + this.compareEnergy(otherSong) + this.compareGenres(otherSong)
                 + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
