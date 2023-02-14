@@ -105,12 +105,12 @@ public class Playlist extends ArrayList<Song> {
      *         the entire playlist in a list format String (does not include stats).
      */
     public String toShortHandString() {
-        String returnString = "-------------------------------------------------------------\n"
-                + this.getPlaylistTitle();
+        String returnString = "Playlist: " + this.getPlaylistTitle()
+                + "\n-------------------------------------------------------------";
         for (Song i : this) {
             returnString += "\n" + i.toShortHandString();
         }
-        return returnString;
+        return returnString + "\n-------------------------------------------------------------\n";
     }
 
     /**
@@ -122,12 +122,12 @@ public class Playlist extends ArrayList<Song> {
      */
     @Override
     public String toString() {
-        String returnString = "-------------------------------------------------------------\n"
-                + this.getPlaylistTitle();
+        String returnString = "Playlist: " + this.getPlaylistTitle()
+                + "\n-------------------------------------------------------------";
         for (Song i : this) {
             returnString += "\n" + i;
         }
-        return returnString;
+        return returnString + "\n-------------------------------------------------------------\n";
     }
 
     /**

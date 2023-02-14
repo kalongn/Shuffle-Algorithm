@@ -20,10 +20,10 @@ public class MusicController {
 
     private Playlist activePlaylist;
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
 
         MusicController spotcloud = new MusicController();
-
+        boolean newPlaylist = false;
         try {
             FileInputStream file = new FileInputStream("playlist.obj");
             ObjectInputStream inStream = new ObjectInputStream(file);
@@ -32,6 +32,7 @@ public class MusicController {
             System.out.println("Detected previous Playlist.");
         } catch (Exception ex) {
             System.out.println("no previous playlist detected.\nPlease create a new playlist.");
+            newPlaylist = true;
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter Spotify playlist URL: ");
             String playlistID = scanner.nextLine();
@@ -52,11 +53,21 @@ public class MusicController {
             }
             spotcloud.activePlaylist = Playlist.readFromPlaylistTxt(playlistID);
         }
-        System.out.print(spotcloud.activePlaylist);
-        FileOutputStream file = new FileOutputStream("playlist.obj");
-        ObjectOutputStream outStream = new ObjectOutputStream(file);
-        outStream.writeObject(spotcloud.activePlaylist);
-        outStream.close();
+
+        if (newPlaylist) {
+            System.out.print(spotcloud.activePlaylist);
+            FileOutputStream file = new FileOutputStream("playlist.obj");
+            ObjectOutputStream outStream = new ObjectOutputStream(file);
+            outStream.writeObject(spotcloud.activePlaylist);
+            outStream.close();
+            return;
+        }
+
+        Playlist originalPlaylist = spotcloud.activePlaylist.clone();
+        spotcloud.activePlaylist.absoluteShuffle();
+        System.out.println(originalPlaylist.toShortHandString());
+        System.out.println(spotcloud.activePlaylist.toShortHandString());
+
     }
 
 }

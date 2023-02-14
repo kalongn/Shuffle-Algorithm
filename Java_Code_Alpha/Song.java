@@ -396,8 +396,7 @@ public class Song implements Serializable {
      *         The song with only the object tracks name. Without all the stats.
      */
     public String toShortHandString() {
-        return "-------------------------------------------------------------\n" + this.getTrackName()
-                + "\n-------------------------------------------------------------";
+        return "\n" + this.getTrackName();
     }
 
     /**
