@@ -12,7 +12,7 @@ import java.util.Scanner;
  * 
  * @author Ka_Long_Ngai 02/06/2023
  */
-public class Song implements Serializable{
+public class Song implements Serializable {
     private String trackName;
     private String[] artistsName;
     private int popularity;
@@ -389,6 +389,15 @@ public class Song implements Serializable{
         return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
                 + this.compareDanceability(otherSong) + this.compareEnergy(otherSong) + genresVal
                 + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
+    }
+
+    /**
+     * @return
+     *         The song with only the object tracks name. Without all the stats.
+     */
+    public String toShortHandString() {
+        return "-------------------------------------------------------------\n" + this.getTrackName()
+                + "\n-------------------------------------------------------------";
     }
 
     /**
