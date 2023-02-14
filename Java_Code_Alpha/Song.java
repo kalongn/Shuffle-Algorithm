@@ -2,6 +2,7 @@ package Java_Code_Alpha;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  * 
  * @author Ka_Long_Ngai 02/06/2023
  */
-public class Song {
+public class Song implements Serializable{
     private String trackName;
     private String[] artistsName;
     private int popularity;
