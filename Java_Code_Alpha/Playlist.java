@@ -90,7 +90,8 @@ public class Playlist extends ArrayList<Song> {
 
     /**
      * This method shuffle entire playlist regardless of the statistic of the song.
-     * It is the most random in terms of a computer can do.
+     * It is the most random in terms of a computer can do. This distribution over a
+     * large of number of trials should return an even distribution of all songs.
      */
     public void absoluteShuffle() {
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
