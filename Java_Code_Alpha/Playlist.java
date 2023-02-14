@@ -108,7 +108,7 @@ public class Playlist extends ArrayList<Song> {
         String returnString = "Playlist: " + this.getPlaylistTitle()
                 + "\n-------------------------------------------------------------";
         for (Song i : this) {
-            returnString += "\n" + i.toShortHandString();
+            returnString += i.toShortHandString();
         }
         return returnString + "\n-------------------------------------------------------------\n";
     }
