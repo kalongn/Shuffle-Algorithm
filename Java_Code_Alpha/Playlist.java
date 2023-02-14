@@ -101,9 +101,24 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
+     * @return
+     *         the entire playlist in a list format String (does not include stats).
+     */
+    public String toShortHandString() {
+        String returnString = "-------------------------------------------------------------\n"
+                + this.getPlaylistTitle();
+        for (Song i : this) {
+            returnString += "\n" + i.toShortHandString();
+        }
+        return returnString;
+    }
+
+    /**
      * return the entire playlist in a list format String.
      * 
      * @see java.util.AbstractCollection#toString()
+     * @return
+     *         the entire playlist in a list format String (include stats).
      */
     @Override
     public String toString() {
