@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This Playlist Class allowing us to create a Playlist object. This class
@@ -64,6 +65,39 @@ public class Playlist extends ArrayList<Song> {
      */
     public String getPlaylistTitle() {
         return this.playlistTitle;
+    }
+
+    /**
+     * Swap 2 Song object within this Playlist given the indexes of the 2 respective
+     * Song object.
+     * 
+     * @param index1
+     *               Index one for one of the Song object.
+     * @param index2
+     *               Index two for the other Song object.
+     * @throws IndexOutOfBoundsException
+     *                                   If either index is not within the size of
+     *                                   the Playlist object or negative value.s
+     */
+    public void swapSong(int index1, int index2) throws IndexOutOfBoundsException {
+        if (index1 > this.size() - 1 || index2 > this.size() - 1 || index1 < 0 || index2 < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        Song temp = this.get(index1);
+        this.set(index1, this.get(index2));
+        this.set(index2, temp);
+    }
+
+    /**
+     * This method shuffle entire playlist regardless of the statistic of the song.
+     * It is the most random in terms of a computer can do.
+     */
+    public void absoluteShuffle() {
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
+        for (int i = this.size() - 1; i > 0; i--) {
+            int rndIndex = rnd.nextInt(i + 1);
+            swapSong(rndIndex, i);
+        }
     }
 
     /**
