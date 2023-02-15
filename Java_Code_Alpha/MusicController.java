@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.HashMap;
 
 /**
  * This MusicController Class allowing us to control a Playlist by directly
@@ -64,9 +65,32 @@ public class MusicController {
         }
 
         Playlist originalPlaylist = spotcloud.activePlaylist.clone();
-        spotcloud.activePlaylist.absoluteShuffle();
-        System.out.println(originalPlaylist.toShortHandString());
-        System.out.println(spotcloud.activePlaylist.toShortHandString());
+        HashMap<String, Integer> playlistOccur = new HashMap<>();
+
+        /*
+         * Demonstrating why a normal absolute random doesn't work a song shuffling.
+         * Since the distrubution only stable in a long term which user won't be
+         * shuffling this playlist again and again during a listening section. But
+         * rather just one time shuffle.
+         */
+        for (int i = 0; i < 10; i++) {
+            spotcloud.activePlaylist.absoluteShuffle();
+            for (int j = 0; j < 10; j++) {
+                if (playlistOccur.containsKey(spotcloud.activePlaylist.get(j).getTrackName())) {
+                    playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(),
+                            playlistOccur.get(spotcloud.activePlaylist.get(j).getTrackName()) + 1);
+                    continue;
+                }
+                playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(), 1);
+            }
+            spotcloud.activePlaylist = originalPlaylist.clone();
+        }
+        
+        // printing the hashmap
+        for (String name : playlistOccur.keySet()) {
+            int occur = playlistOccur.get(name);
+            System.out.println(name + " " + occur);
+        }
 
     }
 
