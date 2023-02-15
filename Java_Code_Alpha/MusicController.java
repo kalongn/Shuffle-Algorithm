@@ -76,12 +76,8 @@ public class MusicController {
         for (int i = 0; i < 10; i++) {
             spotcloud.activePlaylist.absoluteShuffle();
             for (int j = 0; j < 10; j++) {
-                if (playlistOccur.containsKey(spotcloud.activePlaylist.get(j).getTrackName())) {
-                    playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(),
-                            playlistOccur.get(spotcloud.activePlaylist.get(j).getTrackName()) + 1);
-                    continue;
-                }
-                playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(), 1);
+                playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(),
+                        playlistOccur.getOrDefault(spotcloud.activePlaylist.get(j).getTrackName(), 0) + 1);
             }
             spotcloud.activePlaylist = originalPlaylist.clone();
         }
