@@ -30,7 +30,7 @@ public class MusicController {
             ObjectInputStream inStream = new ObjectInputStream(file);
             spotcloud.activePlaylist = (Playlist) inStream.readObject();
             inStream.close();
-            System.out.println("Detected previous Playlist.");
+            System.out.println("Detected previous Playlist.\n");
         } catch (Exception ex) {
             System.out.println("no previous playlist detected.\nPlease create a new playlist.");
             newPlaylist = true;
@@ -85,12 +85,13 @@ public class MusicController {
             }
             spotcloud.activePlaylist = originalPlaylist.clone();
         }
-        
+
         // printing the hashmap
         for (String name : playlistOccur.keySet()) {
             int occur = playlistOccur.get(name);
-            System.out.println(name + " " + occur);
+            System.out.println(name + ", Occurance: " + occur);
         }
+        System.out.println(playlistOccur.size());
 
     }
 
