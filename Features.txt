@@ -1,3 +1,5 @@
 - Need to Rebuild Spotify Seperate Artists' song inside Playlist class.
   - This is to allocate all song from an artist into a iterable state. So we can even out all the song by artist.
-  - HashMap of ArtistNames, LinkedList<Song>, so HashSet<String[], LinkedList<Song>>??
+  - HashMap of ArtistNames, LinkedList<Song>, so Hashmap<String, LinkedList<Song>>??
+    - seems like when spotify sort a playlist by artists. The significant is on the first artist only. So maybe I can do 
+      HashMap<String, __> instead of Hashmap<String[],__>
