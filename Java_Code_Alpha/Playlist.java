@@ -29,6 +29,22 @@ public class Playlist extends ArrayList<Song> {
         this.playlistTitle = playlistTitle;
     }
 
+        /**
+     * Generate a int value between this 2 param inclusively.
+     * 
+     * @param min
+     *            The minimum value you want this function to have a chance
+     *            generate.
+     * @param max
+     *            The maximum value you want this function to have a chance
+     *            generate.
+     * @return
+     *         the random int value.s
+     */
+    private static int randomInt(int min, int max) {
+        return min + (int) (Math.random() * ((max - min) + 1));
+    }
+
     /**
      * read from a PlaylistID file and convert every songID from the playlist into a
      * Song object and added this new Playlist Object and return it.
@@ -129,17 +145,6 @@ public class Playlist extends ArrayList<Song> {
             cursorPlaylist.remove(i);
             i--;
         }
-
-        for (String artistName : songSortByArtist.keySet()) {
-            LinkedList<Song> allSongs = songSortByArtist.get(artistName);
-
-            String allSongsName = "";
-            for (Song i : allSongs) {
-                allSongsName += i.toShortHandString() + " ";
-            }
-            System.out.println(artistName + ", Songs: " + allSongsName);
-        }
-
     }
 
     /**
