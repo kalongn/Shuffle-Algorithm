@@ -93,6 +93,8 @@ public class MusicController {
         }
 
         // spotcloud.absoluteShuffleShowCase();
+
+        spotcloud.activePlaylist.artistSeperation();
     }
 
 }
