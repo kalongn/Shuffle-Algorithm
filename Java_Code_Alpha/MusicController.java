@@ -73,9 +73,9 @@ public class MusicController {
          * shuffling this playlist again and again during a listening section. But
          * rather just one time shuffle.
          */
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 6; i++) {
             spotcloud.activePlaylist.absoluteShuffle();
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 5; j++) {
                 playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(),
                         playlistOccur.getOrDefault(spotcloud.activePlaylist.get(j).getTrackName(), 0) + 1);
             }
@@ -88,7 +88,6 @@ public class MusicController {
             System.out.println(name + ", Occurance: " + occur);
         }
         System.out.println(playlistOccur.size());
-
     }
 
 }
