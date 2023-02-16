@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * This Playlist Class allowing us to create a Playlist object. This class
@@ -99,6 +101,39 @@ public class Playlist extends ArrayList<Song> {
             int rndIndex = rnd.nextInt(i + 1);
             swapSong(rndIndex, i);
         }
+    }
+
+    public void artistSeperation() {
+        Playlist cursorPlaylist = this.clone();
+        HashMap<String, LinkedList<Song>> songSortByArtist = new HashMap<>();
+        for (int i = 0; i < cursorPlaylist.size(); i++) {
+            String currName = cursorPlaylist.get(i).getArtistsName()[0];
+            LinkedList<Song> currArtistSongs = new LinkedList<>();
+            currArtistSongs.add(cursorPlaylist.get(i));
+            for (int j = i + 1; j < cursorPlaylist.size(); j++) {
+                if (!cursorPlaylist.get(j).getArtistsName()[0].equals(currName)) {
+                    continue;
+                }
+                currArtistSongs.add(cursorPlaylist.remove(j));
+                j--;
+            }
+
+            songSortByArtist.put(currName, currArtistSongs);
+            cursorPlaylist.remove(i);
+            i--;
+        }
+
+        //This section verfied that the statement above is indeed working.
+        /*
+         * for (String artistName : songSortByArtist.keySet()) {
+         * LinkedList<Song> allSongs = songSortByArtist.get(artistName);
+         * String allSongsName = "";
+         * for (Song i : allSongs) {
+         * allSongsName += i.toShortHandString() + " ";
+         * }
+         * System.out.println(artistName + ", Songs: " + allSongsName);
+         * }
+         */
     }
 
     /**
