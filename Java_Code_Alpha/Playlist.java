@@ -105,6 +105,11 @@ public class Playlist extends ArrayList<Song> {
 
     public void artistSeperation() {
         Playlist cursorPlaylist = this.clone();
+
+        /*
+         * Seperate each Artist(The first artist in the artists String array[]) with
+         * their respective songs inside the LinkedList.
+         */
         HashMap<String, LinkedList<Song>> songSortByArtist = new HashMap<>();
         for (int i = 0; i < cursorPlaylist.size(); i++) {
             String currName = cursorPlaylist.get(i).getArtistsName()[0];
@@ -117,23 +122,21 @@ public class Playlist extends ArrayList<Song> {
                 currArtistSongs.add(cursorPlaylist.remove(j));
                 j--;
             }
-
             songSortByArtist.put(currName, currArtistSongs);
             cursorPlaylist.remove(i);
             i--;
         }
 
-        //This section verfied that the statement above is indeed working.
-        /*
-         * for (String artistName : songSortByArtist.keySet()) {
-         * LinkedList<Song> allSongs = songSortByArtist.get(artistName);
-         * String allSongsName = "";
-         * for (Song i : allSongs) {
-         * allSongsName += i.toShortHandString() + " ";
-         * }
-         * System.out.println(artistName + ", Songs: " + allSongsName);
-         * }
-         */
+        for (String artistName : songSortByArtist.keySet()) {
+            LinkedList<Song> allSongs = songSortByArtist.get(artistName);
+
+            String allSongsName = "";
+            for (Song i : allSongs) {
+                allSongsName += i.toShortHandString() + " ";
+            }
+            System.out.println(artistName + ", Songs: " + allSongsName);
+        }
+
     }
 
     /**
