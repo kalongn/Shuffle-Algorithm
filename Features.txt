@@ -1,3 +1,3 @@
-- javadoc all new classes
-- work on actual shuffle function
-  - compare song stats method.
+- Need to Rebuild Spotify Seperate Artists' song inside Playlist class.
+  - This is to allocate all song from an artist into a iterable state. So we can even out all the song by artist.
+  - HashMap of ArtistNames, LinkedList<Song>, so HashSet<String[], LinkedList<Song>>??
