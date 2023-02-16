@@ -109,6 +109,9 @@ public class Playlist extends ArrayList<Song> {
         /*
          * Seperate each Artist(The first artist in the artists String array[]) with
          * their respective songs inside the LinkedList.
+         * This is assuming all artists name are unique, if they are not. Probably
+         * should update to use artistID. but for the sake of simplicity, we implied
+         * that all artists name are unique.
          */
         HashMap<String, LinkedList<Song>> songSortByArtist = new HashMap<>();
         for (int i = 0; i < cursorPlaylist.size(); i++) {
