@@ -3,4 +3,3 @@
   - HashMap of ArtistNames, LinkedList<Song>, so Hashmap<String, LinkedList<Song>>??
     - seems like when spotify sort a playlist by artists. The significant is on the first artist only. So maybe I can do 
       HashMap<String, __> instead of Hashmap<String[],__>
-    - Modified to use HashSet.
