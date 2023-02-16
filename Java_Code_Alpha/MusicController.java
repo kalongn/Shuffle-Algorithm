@@ -87,7 +87,9 @@ public class MusicController {
             int occur = playlistOccur.get(name);
             System.out.println(name + ", Occurance: " + occur);
         }
-        System.out.println(playlistOccur.size());
+        System.out.println(
+                "-------------------------------------------------------------\nAbsolute shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                        + playlistOccur.size() +"\n");
     }
 
 }
