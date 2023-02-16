@@ -21,6 +21,34 @@ public class MusicController {
 
     private Playlist activePlaylist;
 
+    /**
+     * Demonstrating why a normal absolute random doesn't work a song shuffling.
+     * Since the distrubution only stable in a long term which user won't be
+     * shuffling this playlist again and again during a listening section. But
+     * rather just one time shuffle.
+     */
+    public void absoluteShuffleShowCase() {
+        Playlist originalPlaylist = this.activePlaylist.clone();
+        HashMap<String, Integer> playlistOccur = new HashMap<>();
+        for (int i = 0; i < 6; i++) {
+            this.activePlaylist.absoluteShuffle();
+            for (int j = 0; j < 5; j++) {
+                playlistOccur.put(this.activePlaylist.get(j).getTrackName(),
+                        playlistOccur.getOrDefault(this.activePlaylist.get(j).getTrackName(), 0) + 1);
+            }
+            this.activePlaylist = originalPlaylist.clone();
+        }
+
+        // printing the hashmap
+        for (String name : playlistOccur.keySet()) {
+            int occur = playlistOccur.get(name);
+            System.out.println(name + ", Occurance: " + occur);
+        }
+        System.out.println(
+                "-------------------------------------------------------------\nAbsolute shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                        + playlistOccur.size() + "\n");
+    }
+
     public static void main(String[] args) throws IOException {
 
         MusicController spotcloud = new MusicController();
@@ -64,32 +92,7 @@ public class MusicController {
             return;
         }
 
-        Playlist originalPlaylist = spotcloud.activePlaylist.clone();
-        HashMap<String, Integer> playlistOccur = new HashMap<>();
-
-        /*
-         * Demonstrating why a normal absolute random doesn't work a song shuffling.
-         * Since the distrubution only stable in a long term which user won't be
-         * shuffling this playlist again and again during a listening section. But
-         * rather just one time shuffle.
-         */
-        for (int i = 0; i < 6; i++) {
-            spotcloud.activePlaylist.absoluteShuffle();
-            for (int j = 0; j < 5; j++) {
-                playlistOccur.put(spotcloud.activePlaylist.get(j).getTrackName(),
-                        playlistOccur.getOrDefault(spotcloud.activePlaylist.get(j).getTrackName(), 0) + 1);
-            }
-            spotcloud.activePlaylist = originalPlaylist.clone();
-        }
-
-        // printing the hashmap
-        for (String name : playlistOccur.keySet()) {
-            int occur = playlistOccur.get(name);
-            System.out.println(name + ", Occurance: " + occur);
-        }
-        System.out.println(
-                "-------------------------------------------------------------\nAbsolute shuffle, 6 random shuffle. All Songs make it to Top 5: "
-                        + playlistOccur.size() +"\n");
+        // spotcloud.absoluteShuffleShowCase();
     }
 
 }
