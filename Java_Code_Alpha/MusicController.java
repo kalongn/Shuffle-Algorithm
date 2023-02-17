@@ -22,10 +22,7 @@ public class MusicController {
     private Playlist activePlaylist;
 
     /**
-     * Demonstrating why a normal absolute random doesn't work a song shuffling.
-     * Since the distrubution only stable in a long term which user won't be
-     * shuffling this playlist again and again during a listening section. But
-     * rather just one time shuffle.
+     * Demonstrating why a true random for song shuffling.
      */
     public void trueShuffleShowCase() {
         Playlist originalPlaylist = this.activePlaylist.clone();
@@ -49,6 +46,12 @@ public class MusicController {
                         + playlistOccur.size() + "\n");
     }
 
+    /**
+     * Demonstate the runtime of a true shuffle function.
+     * 
+     * @return
+     *         a long variable of the time used in nano-seconds.
+     */
     public long timeTrueShuffle() {
         long startTime = System.nanoTime();
         this.activePlaylist.trueShuffle();
@@ -56,6 +59,9 @@ public class MusicController {
         return endTime - startTime;
     }
 
+    /**
+     * Demonstrating an imitation of spotify 2014 shuffling algorithm.
+     */
     public void spotifyBalanceShuffleShowCase() {
         Playlist originalPlaylist = this.activePlaylist.clone();
         HashMap<String, Integer> playlistOccur = new HashMap<>();
@@ -78,6 +84,12 @@ public class MusicController {
                         + playlistOccur.size() + "\n");
     }
 
+    /**
+     * Demonstate the runtime of the spotify 2014 shuffle function.
+     * 
+     * @return
+     *         a long variable of the time used in nano-seconds.
+     */
     public long timeSpotifyBalanceShuffle() {
         long startTime = System.nanoTime();
         this.activePlaylist.spotifyBalanceShuffle();
@@ -89,30 +101,30 @@ public class MusicController {
 
         MusicController spotcloud = new MusicController();
         boolean newPlaylist = false;
+        Scanner scanner = new Scanner(System.in);
         try {
             FileInputStream file = new FileInputStream("playlist.obj");
             ObjectInputStream inStream = new ObjectInputStream(file);
             spotcloud.activePlaylist = (Playlist) inStream.readObject();
             inStream.close();
             System.out.println("Detected previous Playlist.\n");
-            /*
-             * Scanner scanner = new Scanner(System.in);
-             * System.out.print("Do you want to use this as your data sample? (Y/N)");
-             * String input = scanner.next();
-             * scanner.close();
-             * if(input.equals("N")) {
-             * throw new Exception();
-             * }
-             */
+            System.out.print("Do you want to use this as your data sample? (Y/N): ");
+            String input = scanner.nextLine();
+            if (input.equals("N")) {
+                throw new Exception("expected");
+            }
         } catch (Exception ex) {
-            System.out.println("no previous playlist detected.\nPlease create a new playlist.");
+            if (ex.getMessage().equals("expected")) {
+                System.out.println("Please create a new playlist.");
+            } else {
+                System.out.println("no previous playlist detected.\nPlease create a new playlist.");
+            }
             newPlaylist = true;
-            Scanner scanner = new Scanner(System.in);
             System.out.print("Enter Spotify playlist URL: ");
             String playlistID = scanner.nextLine();
-            scanner.close();
             if (playlistID.length() != 76 || !playlistID.startsWith("https://open.spotify.com/playlist/")) {
                 System.out.println("Invalid URL.");
+                scanner.close();
                 return;
             }
             playlistID = playlistID.substring(34, 56);
@@ -120,6 +132,7 @@ public class MusicController {
                 Runtime.getRuntime().exec(new String[] { "bash", "./APICall.sh", playlistID }).waitFor();
             } catch (InterruptedException e) {
                 System.out.println("Thread interrupted.");
+                scanner.close();
                 return;
             } catch (IOException e) {
                 System.out.println("Invalid URL.");
@@ -127,6 +140,7 @@ public class MusicController {
             }
             spotcloud.activePlaylist = Playlist.readFromPlaylistTxt(playlistID);
         }
+        scanner.close();
 
         if (newPlaylist) {
             System.out.print(spotcloud.activePlaylist);
