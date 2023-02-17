@@ -27,11 +27,11 @@ public class MusicController {
      * shuffling this playlist again and again during a listening section. But
      * rather just one time shuffle.
      */
-    public void absoluteShuffleShowCase() {
+    public void trueShuffleShowCase() {
         Playlist originalPlaylist = this.activePlaylist.clone();
         HashMap<String, Integer> playlistOccur = new HashMap<>();
         for (int i = 0; i < 6; i++) {
-            this.activePlaylist.absoluteShuffle();
+            this.activePlaylist.trueShuffle();
             for (int j = 0; j < 5; j++) {
                 playlistOccur.put(this.activePlaylist.get(j).getTrackName(),
                         playlistOccur.getOrDefault(this.activePlaylist.get(j).getTrackName(), 0) + 1);

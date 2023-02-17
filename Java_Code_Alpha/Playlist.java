@@ -111,7 +111,7 @@ public class Playlist extends ArrayList<Song> {
      * It is the most random in terms of a computer can do. This distribution over a
      * large of number of trials should return an even distribution of all songs.
      */
-    public void absoluteShuffle() {
+    public void trueShuffle() {
         ThreadLocalRandom rnd = ThreadLocalRandom.current();
         for (int i = this.size() - 1; i > 0; i--) {
             int rndIndex = rnd.nextInt(i + 1);
