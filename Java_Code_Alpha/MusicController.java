@@ -58,7 +58,16 @@ public class MusicController {
             ObjectInputStream inStream = new ObjectInputStream(file);
             spotcloud.activePlaylist = (Playlist) inStream.readObject();
             inStream.close();
-            System.out.println("Detected previous Playlist.\n");
+            /*
+             * System.out.println("Detected previous Playlist.\n");
+             * Scanner scanner = new Scanner(System.in);
+             * System.out.print("Do you want to use this as your data sample? (Y/N)");
+             * String input = scanner.next();
+             * scanner.close();
+             * if(input.equals("N")) {
+             * throw new Exception();
+             * }
+             */
         } catch (Exception ex) {
             System.out.println("no previous playlist detected.\nPlease create a new playlist.");
             newPlaylist = true;
@@ -94,8 +103,16 @@ public class MusicController {
 
         // spotcloud.absoluteShuffleShowCase();
 
+        long startTime = System.nanoTime();
         spotcloud.activePlaylist.spotifyBalanceShuffle();
-        System.out.println(spotcloud.activePlaylist.toShortHandString());
+        long endTime = System.nanoTime();
+        System.out.println(((endTime - startTime)) + " nano seconds. (Immitating Spotify 2014 Shuffle)");
+
+        startTime = System.nanoTime();
+        spotcloud.activePlaylist.trueShuffle();
+        endTime = System.nanoTime();
+        System.out.println(((endTime - startTime)) + " nano seconds. (True Shuffle)");
+        // System.out.println(spotcloud.activePlaylist.toShortHandString());
     }
 
 }
