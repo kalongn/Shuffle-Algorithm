@@ -166,6 +166,7 @@ public class Playlist extends ArrayList<Song> {
             int seperateSameArtists = playListSize / allSongsFromCurrArtists.size();
             for (int j = 0; j < allSongsFromCurrArtists.size(); j++) {
                 int randomOffset = randomInt((j * seperateSameArtists) % playListSize, playListSize - 1);
+                //Version 1 code
                 /*
                  * int[] probSelection = new int[] { -1, 1 };
                  * int probeAmount = probSelection[randomInt(0 , 1)];
@@ -177,6 +178,8 @@ public class Playlist extends ArrayList<Song> {
                  * }
                  * this.set(randomOffset, allSongsFromCurrArtists.get(j));
                  */
+
+                // Version 2 code
                 if (this.get(randomOffset) != null) {
                     int probAmount = randomInt(-1 * playListSize * 25 / 100, playListSize * 25 / 100);
                     int newIndex = Math.max(randomOffset + probAmount, 0) % playListSize;
@@ -190,6 +193,7 @@ public class Playlist extends ArrayList<Song> {
                 }
             }
         }
+        //part of Version 2
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i) == null) {
                 this.remove(i);
