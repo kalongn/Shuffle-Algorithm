@@ -29,7 +29,7 @@ public class Playlist extends ArrayList<Song> {
         this.playlistTitle = playlistTitle;
     }
 
-        /**
+    /**
      * Generate a int value between this 2 param inclusively.
      * 
      * @param min
@@ -119,9 +119,8 @@ public class Playlist extends ArrayList<Song> {
         }
     }
 
-    public void artistSeperation() {
-        Playlist cursorPlaylist = this.clone();
-
+    public void spotifyBalanceShuffle() {
+        int playListSize = this.size();
         /*
          * Seperate each Artist(The first artist in the artists String array[]) with
          * their respective songs inside the LinkedList.
@@ -130,20 +129,43 @@ public class Playlist extends ArrayList<Song> {
          * that all artists name are unique.
          */
         HashMap<String, LinkedList<Song>> songSortByArtist = new HashMap<>();
-        for (int i = 0; i < cursorPlaylist.size(); i++) {
-            String currName = cursorPlaylist.get(i).getArtistsName()[0];
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i) == null) {
+                continue;
+            }
+            String currName = this.get(i).getArtistsName()[0];
             LinkedList<Song> currArtistSongs = new LinkedList<>();
-            currArtistSongs.add(cursorPlaylist.get(i));
-            for (int j = i + 1; j < cursorPlaylist.size(); j++) {
-                if (!cursorPlaylist.get(j).getArtistsName()[0].equals(currName)) {
+            currArtistSongs.add(this.get(i));
+            for (int j = i + 1; j < this.size(); j++) {
+                if (this.get(j) == null || (!this.get(j).getArtistsName()[0].equals(currName))) {
                     continue;
                 }
-                currArtistSongs.add(cursorPlaylist.remove(j));
-                j--;
+                currArtistSongs.add(this.get(j));
+                this.set(j, null);
             }
             songSortByArtist.put(currName, currArtistSongs);
-            cursorPlaylist.remove(i);
-            i--;
+            this.set(i, null);
+        }
+
+        ArrayList<String> artistsNames = new ArrayList<>(songSortByArtist.keySet());
+        for (int i = 0; i < artistsNames.size(); i++) {
+            LinkedList<Song> allSongsFromCurrArtists = songSortByArtist.get(artistsNames.get(i));
+            int seperateSameArtists = playListSize / allSongsFromCurrArtists.size();
+            for (int j = 0; j < allSongsFromCurrArtists.size(); j++) {
+                int randomOffset = randomInt((0 + j * seperateSameArtists) % playListSize, playListSize - 1);
+                int[] probSelection = new int[] { -1, 1 };
+                int probeAmount = probSelection[randomInt(0, 1)];
+                while (this.get(randomOffset) != null) {
+                    randomOffset = (randomOffset + probeAmount) % 30;
+                    if (randomOffset < 0) {
+                        randomOffset = 29;
+                    } else if (randomOffset > 29) {
+                        randomOffset = 0;
+                    }
+                }
+                this.set(randomOffset, allSongsFromCurrArtists.get(j));
+            }
+
         }
     }
 
