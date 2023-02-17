@@ -169,9 +169,9 @@ public class Playlist extends ArrayList<Song> {
                 int[] probSelection = new int[] { -1, 1 };
                 int probeAmount = probSelection[randomInt(0, 1)];
                 while (this.get(randomOffset) != null) {
-                    randomOffset = (randomOffset + probeAmount) % 30;
+                    randomOffset = (randomOffset + probeAmount) % playListSize;
                     if (randomOffset < 0) {
-                        randomOffset = 29;
+                        randomOffset = playListSize - 1;
                     }
                 }
                 this.set(randomOffset, allSongsFromCurrArtists.get(j));
