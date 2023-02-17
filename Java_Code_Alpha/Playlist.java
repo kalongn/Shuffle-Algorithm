@@ -165,18 +165,36 @@ public class Playlist extends ArrayList<Song> {
             LinkedList<Song> allSongsFromCurrArtists = songSortByArtist.get(artistsNames.get(i));
             int seperateSameArtists = playListSize / allSongsFromCurrArtists.size();
             for (int j = 0; j < allSongsFromCurrArtists.size(); j++) {
-                int randomOffset = randomInt(( j * seperateSameArtists) % playListSize, playListSize - 1);
-                int[] probSelection = new int[] { -1, 1 };
-                int probeAmount = probSelection[randomInt(0 , 1)];
-                while (this.get(randomOffset) != null) {
-                    randomOffset = (randomOffset + probeAmount) % playListSize;
-                    if (randomOffset < 0) {
-                        randomOffset = playListSize - 1;
+                int randomOffset = randomInt((j * seperateSameArtists) % playListSize, playListSize - 1);
+                /*
+                 * int[] probSelection = new int[] { -1, 1 };
+                 * int probeAmount = probSelection[randomInt(0 , 1)];
+                 * while (this.get(randomOffset) != null) {
+                 * randomOffset = (randomOffset + probeAmount) % playListSize;
+                 * if (randomOffset < 0) {
+                 * randomOffset = playListSize - 1;
+                 * }
+                 * }
+                 * this.set(randomOffset, allSongsFromCurrArtists.get(j));
+                 */
+                if (this.get(randomOffset) != null) {
+                    int probAmount = randomInt(-1 * playListSize * 25 / 100, playListSize * 25 / 100);
+                    int newIndex = Math.max(randomOffset + probAmount, 0) % playListSize;
+                    if (this.get(Math.max(randomOffset + probAmount, 0) % playListSize) == null) {
+                        this.set(newIndex, allSongsFromCurrArtists.get(j));
+                    } else {
+                        this.add(newIndex, allSongsFromCurrArtists.get(j));
                     }
+                } else {
+                    this.set(randomOffset, allSongsFromCurrArtists.get(j));
                 }
-                this.set(randomOffset, allSongsFromCurrArtists.get(j));
             }
-
+        }
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i) == null) {
+                this.remove(i);
+                i--;
+            }
         }
     }
 
