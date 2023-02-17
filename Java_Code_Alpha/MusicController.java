@@ -49,6 +49,42 @@ public class MusicController {
                         + playlistOccur.size() + "\n");
     }
 
+    public long timeTrueShuffle() {
+        long startTime = System.nanoTime();
+        this.activePlaylist.trueShuffle();
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    public void spotifyBalanceShuffleShowCase() {
+        Playlist originalPlaylist = this.activePlaylist.clone();
+        HashMap<String, Integer> playlistOccur = new HashMap<>();
+        for (int i = 0; i < 6; i++) {
+            this.activePlaylist.spotifyBalanceShuffle();
+            for (int j = 0; j < 5; j++) {
+                playlistOccur.put(this.activePlaylist.get(j).getTrackName(),
+                        playlistOccur.getOrDefault(this.activePlaylist.get(j).getTrackName(), 0) + 1);
+            }
+            this.activePlaylist = originalPlaylist.clone();
+        }
+
+        // printing the hashmap
+        for (String name : playlistOccur.keySet()) {
+            int occur = playlistOccur.get(name);
+            System.out.println(name + ", Occurance: " + occur);
+        }
+        System.out.println(
+                "-------------------------------------------------------------\nSpotify 2014 shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                        + playlistOccur.size() + "\n");
+    }
+
+    public long timeSpotifyBalanceShuffle() {
+        long startTime = System.nanoTime();
+        this.activePlaylist.spotifyBalanceShuffle();
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
     public static void main(String[] args) throws IOException {
 
         MusicController spotcloud = new MusicController();
@@ -59,7 +95,8 @@ public class MusicController {
             spotcloud.activePlaylist = (Playlist) inStream.readObject();
             inStream.close();
             System.out.println("Detected previous Playlist.\n");
-             /* Scanner scanner = new Scanner(System.in);
+            /*
+             * Scanner scanner = new Scanner(System.in);
              * System.out.print("Do you want to use this as your data sample? (Y/N)");
              * String input = scanner.next();
              * scanner.close();
@@ -100,17 +137,14 @@ public class MusicController {
             return;
         }
 
-        // spotcloud.absoluteShuffleShowCase();
-
-        long startTime = System.nanoTime();
+        // spotcloud.trueShuffleShowCase();
+        // spotcloud.spotifyBalanceShuffleShowCase();
+        Playlist originalPlaylist = spotcloud.activePlaylist.clone();
         spotcloud.activePlaylist.trueShuffle();
-        long endTime = System.nanoTime();
-        System.out.println(((endTime - startTime)) + " nano seconds. (True Shuffle)");
-        startTime = System.nanoTime();
+        System.out.println("True Random\n" + spotcloud.activePlaylist.toShortHandString());
+        spotcloud.activePlaylist = originalPlaylist;
         spotcloud.activePlaylist.spotifyBalanceShuffle();
-        endTime = System.nanoTime();
-        System.out.println(((endTime - startTime)) + " nano seconds. (Immitating Spotify 2014 Shuffle)");
-        // System.out.println(spotcloud.activePlaylist.toShortHandString());
+        System.out.println("Balance Random\n" + spotcloud.activePlaylist.toShortHandString());
     }
 
 }
