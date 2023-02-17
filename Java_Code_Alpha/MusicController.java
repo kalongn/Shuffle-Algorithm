@@ -94,7 +94,8 @@ public class MusicController {
 
         // spotcloud.absoluteShuffleShowCase();
 
-        spotcloud.activePlaylist.artistSeperation();
+        spotcloud.activePlaylist.spotifyBalanceShuffle();
+        System.out.println(spotcloud.activePlaylist.toShortHandString());
     }
 
 }
