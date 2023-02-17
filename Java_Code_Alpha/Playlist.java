@@ -119,6 +119,12 @@ public class Playlist extends ArrayList<Song> {
         }
     }
 
+    /**
+     * This method intended to imitate the shuffling algorithm idea from the Spotify
+     * engineering R&D post in 2014, It essentially sort songs by artists. Spread
+     * those songs out evenly and put it in the playlist. Probing is required when
+     * the direct number given was not nesscarily an open spot.
+     */
     public void spotifyBalanceShuffle() {
         int playListSize = this.size();
         /*
@@ -146,6 +152,13 @@ public class Playlist extends ArrayList<Song> {
             songSortByArtist.put(currName, currArtistSongs);
             this.set(i, null);
         }
+
+        /*
+         * This is the part where the balance shuffling happened, we attempted to put
+         * songs into the respective place with an offset. If the current position is
+         * already accquried by a song, then a linear probing will occur to find a null
+         * spot within the playlist. Either backward or going forward of the playlist.
+         */
 
         ArrayList<String> artistsNames = new ArrayList<>(songSortByArtist.keySet());
         for (int i = 0; i < artistsNames.size(); i++) {
