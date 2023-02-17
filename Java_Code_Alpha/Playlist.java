@@ -159,8 +159,6 @@ public class Playlist extends ArrayList<Song> {
                     randomOffset = (randomOffset + probeAmount) % 30;
                     if (randomOffset < 0) {
                         randomOffset = 29;
-                    } else if (randomOffset > 29) {
-                        randomOffset = 0;
                     }
                 }
                 this.set(randomOffset, allSongsFromCurrArtists.get(j));
