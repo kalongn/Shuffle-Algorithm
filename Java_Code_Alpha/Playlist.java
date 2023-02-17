@@ -165,9 +165,9 @@ public class Playlist extends ArrayList<Song> {
             LinkedList<Song> allSongsFromCurrArtists = songSortByArtist.get(artistsNames.get(i));
             int seperateSameArtists = playListSize / allSongsFromCurrArtists.size();
             for (int j = 0; j < allSongsFromCurrArtists.size(); j++) {
-                int randomOffset = randomInt((0 + j * seperateSameArtists) % playListSize, playListSize - 1);
+                int randomOffset = randomInt(( j * seperateSameArtists) % playListSize, playListSize - 1);
                 int[] probSelection = new int[] { -1, 1 };
-                int probeAmount = probSelection[randomInt(0, 1)];
+                int probeAmount = probSelection[randomInt(0 , 1)];
                 while (this.get(randomOffset) != null) {
                     randomOffset = (randomOffset + probeAmount) % playListSize;
                     if (randomOffset < 0) {
