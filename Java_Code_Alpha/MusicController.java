@@ -145,6 +145,8 @@ public class MusicController {
         spotcloud.activePlaylist = originalPlaylist;
         spotcloud.activePlaylist.spotifyBalanceShuffle();
         System.out.println("Balance Random\n" + spotcloud.activePlaylist.toShortHandString());
+        // System.out.println(spotcloud.timeTrueShuffle());
+        // System.out.println(spotcloud.timeSpotifyBalanceShuffle());
     }
 
 }
