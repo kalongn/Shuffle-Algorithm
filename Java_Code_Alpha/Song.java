@@ -391,6 +391,18 @@ public class Song implements Serializable {
                 + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
     }
 
+    public double weightedSimilarities(Song otherSong) {
+        double genresVal = this.compareGenres(otherSong);
+        double otherStatsWeighted = roundtoThousand(
+                this.compareAcousticness(otherSong) * 0.15 + this.compareBPM(otherSong) * .25
+                        + this.compareDanceability(otherSong) * 0.05 + this.compareEnergy(otherSong) * 0.15
+                        + this.comparePopularity(otherSong) * .10 + this.compareValence(otherSong) * 3);
+        if (genresVal == -1.0) {
+            return otherStatsWeighted;
+        }
+        return roundtoThousand(genresVal * .4 + otherStatsWeighted * .6);
+    }
+
     /**
      * @return
      *         The song with only the object tracks name. Without all the stats.
