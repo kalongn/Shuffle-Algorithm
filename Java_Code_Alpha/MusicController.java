@@ -85,6 +85,31 @@ public class MusicController {
     }
 
     /**
+     * Demonstrating an attempt on building a new shuffle algorithm.
+     */
+    public void newShuffleShowCase() {
+        Playlist originalPlaylist = this.activePlaylist.clone();
+        HashMap<String, Integer> playlistOccur = new HashMap<>();
+        for (int i = 0; i < 6; i++) {
+            this.activePlaylist.attemptNewShuffle();
+            for (int j = 0; j < 5; j++) {
+                playlistOccur.put(this.activePlaylist.get(j).getTrackName(),
+                        playlistOccur.getOrDefault(this.activePlaylist.get(j).getTrackName(), 0) + 1);
+            }
+            this.activePlaylist = originalPlaylist.clone();
+        }
+
+        // printing the hashmap
+        for (String name : playlistOccur.keySet()) {
+            int occur = playlistOccur.get(name);
+            System.out.println(name + ", Occurance: " + occur);
+        }
+        System.out.println(
+                "-------------------------------------------------------------\nNew shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                        + playlistOccur.size() + "\n");
+    }
+
+    /**
      * Demonstate the runtime of the spotify 2014 shuffle function.
      * 
      * @return
@@ -93,6 +118,19 @@ public class MusicController {
     public long timeSpotifyBalanceShuffle() {
         long startTime = System.nanoTime();
         this.activePlaylist.spotifyBalanceShuffle();
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    /**
+     * Demonstate the runtime of the attempt new shuffle function.
+     * 
+     * @return
+     *         a long variable of the time used in nano-seconds.
+     */
+    public long timeMyShuffle() {
+        long startTime = System.nanoTime();
+        this.activePlaylist.attemptNewShuffle();
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
@@ -153,14 +191,21 @@ public class MusicController {
 
         // spotcloud.trueShuffleShowCase();
         // spotcloud.spotifyBalanceShuffleShowCase();
+        // spotcloud.newShuffleShowCase();
         Playlist originalPlaylist = spotcloud.activePlaylist.clone();
         spotcloud.activePlaylist.trueShuffle();
         System.out.println("True Random\n" + spotcloud.activePlaylist.toShortHandString());
-        spotcloud.activePlaylist = originalPlaylist;
+        spotcloud.activePlaylist = originalPlaylist.clone();
         spotcloud.activePlaylist.spotifyBalanceShuffle();
         System.out.println("Balance Random\n" + spotcloud.activePlaylist.toShortHandString());
-        // System.out.println(spotcloud.timeTrueShuffle());
-        // System.out.println(spotcloud.timeSpotifyBalanceShuffle());
+        spotcloud.activePlaylist = originalPlaylist.clone();
+        spotcloud.activePlaylist.attemptNewShuffle();
+        System.out.println(spotcloud.activePlaylist.toShortHandString());
+        // System.out.println("True shuffle time: " + spotcloud.timeTrueShuffle());
+        // System.out.println("Spotify clone time: " +
+        // spotcloud.timeSpotifyBalanceShuffle());
+        // System.out.println("My new proposed shuffle time: " +
+        // spotcloud.timeMyShuffle());
     }
 
 }
