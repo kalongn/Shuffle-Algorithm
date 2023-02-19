@@ -120,20 +120,17 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
-     * This method intended to imitate the shuffling algorithm idea from the Spotify
-     * engineering R&D post in 2014, It essentially sort songs by artists. Spread
-     * those songs out evenly and put it in the playlist. Probing is required when
-     * the direct number given was not nesscarily an open spot.
+     * Seperate each Artist(The first artist in the artists String array[]) with
+     * their respective songs inside the LinkedList.
+     * This is assuming all artists name are unique, if they are not. Probably
+     * should update to use artistID. but for the sake of simplicity, we implied
+     * that all artists name are unique. This method will make the current playlist
+     * aka this reference filled with all null references.
+     * 
+     * @return
+     *         A hashmap of artists and their respective songs all in a linkedList.
      */
-    public void spotifyBalanceShuffle() {
-        int playListSize = this.size();
-        /*
-         * Seperate each Artist(The first artist in the artists String array[]) with
-         * their respective songs inside the LinkedList.
-         * This is assuming all artists name are unique, if they are not. Probably
-         * should update to use artistID. but for the sake of simplicity, we implied
-         * that all artists name are unique.
-         */
+    private HashMap<String, LinkedList<Song>> seperateSongByArtists() {
         HashMap<String, LinkedList<Song>> songSortByArtist = new HashMap<>();
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i) == null) {
@@ -152,6 +149,18 @@ public class Playlist extends ArrayList<Song> {
             songSortByArtist.put(currName, currArtistSongs);
             this.set(i, null);
         }
+        return songSortByArtist;
+    }
+
+    /**
+     * This method intended to imitate the shuffling algorithm idea from the Spotify
+     * engineering R&D post in 2014, It essentially sort songs by artists. Spread
+     * those songs out evenly and put it in the playlist. Probing is required when
+     * the direct number given was not nesscarily an open spot.
+     */
+    public void spotifyBalanceShuffle() {
+        int playListSize = this.size();
+        HashMap<String, LinkedList<Song>> songSortByArtist = seperateSongByArtists();
 
         /*
          * This is the part where the balance shuffling happened, we attempted to put
@@ -163,10 +172,11 @@ public class Playlist extends ArrayList<Song> {
         ArrayList<String> artistsNames = new ArrayList<>(songSortByArtist.keySet());
         for (int i = 0; i < artistsNames.size(); i++) {
             LinkedList<Song> allSongsFromCurrArtists = songSortByArtist.get(artistsNames.get(i));
+            // trying to divide artists song with equal spacing.
             int seperateSameArtists = playListSize / allSongsFromCurrArtists.size();
             for (int j = 0; j < allSongsFromCurrArtists.size(); j++) {
                 int randomOffset = randomInt((j * seperateSameArtists) % playListSize, playListSize - 1);
-                //Version 1 code
+                // Version 1 code (linear probing in a way.)
                 /*
                  * int[] probSelection = new int[] { -1, 1 };
                  * int probeAmount = probSelection[randomInt(0 , 1)];
@@ -179,7 +189,7 @@ public class Playlist extends ArrayList<Song> {
                  * this.set(randomOffset, allSongsFromCurrArtists.get(j));
                  */
 
-                // Version 2 code
+                // Version 2 code (randomly adding the song into a 25% range of a randomOffset)
                 if (this.get(randomOffset) != null) {
                     int probAmount = randomInt(-1 * playListSize * 25 / 100, playListSize * 25 / 100);
                     int newIndex = Math.max(randomOffset + probAmount, 0) % playListSize;
@@ -193,7 +203,7 @@ public class Playlist extends ArrayList<Song> {
                 }
             }
         }
-        //part of Version 2
+        // part of Version 2
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i) == null) {
                 this.remove(i);
