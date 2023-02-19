@@ -164,9 +164,7 @@ public class Playlist extends ArrayList<Song> {
 
         /*
          * This is the part where the balance shuffling happened, we attempted to put
-         * songs into the respective place with an offset. If the current position is
-         * already accquried by a song, then a linear probing will occur to find a null
-         * spot within the playlist. Either backward or going forward of the playlist.
+         * songs into the respective place with an offset.
          */
 
         ArrayList<String> artistsNames = new ArrayList<>(songSortByArtist.keySet());
