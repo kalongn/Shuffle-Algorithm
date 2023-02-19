@@ -221,7 +221,7 @@ public class Playlist extends ArrayList<Song> {
      * avgSimilarity values for rest of the songs base comparing it with this song.
      * Then insert the smallest, greatest differences accordingly.
      */
-    public void attemptNewShuffle() {
+    public void statBaseShuffle() {
         int thisPlayListSize = this.size();
         this.trueShuffle();
         if (thisPlayListSize < 10) {
