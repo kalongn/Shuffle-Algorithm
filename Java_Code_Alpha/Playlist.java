@@ -203,7 +203,7 @@ public class Playlist extends ArrayList<Song> {
                 }
             }
         }
-        // part of Version 2
+        // part of Version 2 (remove all the dummy null reference.)
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i) == null) {
                 this.remove(i);
