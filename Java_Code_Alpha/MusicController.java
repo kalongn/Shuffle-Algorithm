@@ -42,7 +42,7 @@ public class MusicController {
             System.out.println(name + ", Occurance: " + occur);
         }
         System.out.println(
-                "-------------------------------------------------------------\nAbsolute shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                "-------------------------------------------------------------\nTrue shuffle, 6 random shuffle. All Songs make it to Top 5: "
                         + playlistOccur.size() + "\n");
     }
 
@@ -105,7 +105,7 @@ public class MusicController {
             System.out.println(name + ", Occurance: " + occur);
         }
         System.out.println(
-                "-------------------------------------------------------------\nNew shuffle, 6 random shuffle. All Songs make it to Top 5: "
+                "-------------------------------------------------------------\nStat Base shuffle, 6 random shuffle. All Songs make it to Top 5: "
                         + playlistOccur.size() + "\n");
     }
 
