@@ -262,6 +262,7 @@ public class Playlist extends ArrayList<Song> {
             this.add(0, newPlaylist.remove(i));
 
         }
+        this.add(thisPlayListSize / 2, this.get(thisPlayListSize - 1));
     }
 
     /**
