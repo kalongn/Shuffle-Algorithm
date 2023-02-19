@@ -215,6 +215,56 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
+     * This method is my own implementation of a shuffle algorithm, if the playlist
+     * size is less then 10. It will just do a true shuffle. If not, it will select
+     * 1 single song randomly from the current playlist. Calculate all the
+     * avgSimilarity values for rest of the songs base comparing it with this song.
+     * Then insert the smallest, greatest differences accordingly.
+     */
+    public void attemptNewShuffle() {
+        int thisPlayListSize = this.size();
+        this.trueShuffle();
+        if (thisPlayListSize < 10) {
+            return;
+        }
+
+        Playlist newPlaylist = new Playlist(this.getPlaylistTitle());
+        newPlaylist.add(this.remove(0));
+        ArrayList<Double> sortedWeightValues = new ArrayList<>();
+
+        for (int i = 0; i < this.size(); i++) {
+            sortedWeightValues.add(newPlaylist.get(0).weightedSimilarities(this.get(i)));
+        }
+
+        int loopAmount = this.size();
+        for (int i = 0; i < loopAmount / 2; i++) {
+            double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
+            int minIndex = -1, maxIndex = -1;
+            for (int j = 0; j < sortedWeightValues.size(); j++) {
+                double currValue = sortedWeightValues.get(j);
+                if (min > currValue) {
+                    min = currValue;
+                    minIndex = j;
+                }
+                if (max < currValue) {
+                    max = currValue;
+                    maxIndex = j;
+                }
+            }
+            int indexAdjust = maxIndex > minIndex ? 1 : 0;
+            newPlaylist.add(this.remove(minIndex));
+            newPlaylist.add(this.remove(maxIndex - indexAdjust));
+            sortedWeightValues.remove(minIndex);
+            sortedWeightValues.remove(maxIndex - indexAdjust);
+        }
+
+        for (int i = newPlaylist.size() - 1; i >= 0; i--) {
+            this.add(0, newPlaylist.remove(i));
+
+        }
+    }
+
+    /**
      * @return
      *         the entire playlist in a list format String (does not include stats).
      */
