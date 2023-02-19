@@ -391,6 +391,19 @@ public class Song implements Serializable {
                 + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
     }
 
+    /**
+     * This method return a weight proportion of similarity across all songs,
+     * althought all value are set by a developer. This can be modified later or
+     * even implement later script create more flexible/random experience on the
+     * weight of each category.
+     * 
+     * @param otherSong
+     *                  The Song object you want to compare with this reference Song
+     *                  object.
+     * @return
+     *         A double value range from [0,1] represent a percentage of weighted
+     *         similarity.
+     */
     public double weightedSimilarities(Song otherSong) {
         double genresVal = this.compareGenres(otherSong);
         double otherStatsWeighted = roundtoThousand(
