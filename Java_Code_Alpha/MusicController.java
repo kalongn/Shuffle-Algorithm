@@ -91,7 +91,7 @@ public class MusicController {
         Playlist originalPlaylist = this.activePlaylist.clone();
         HashMap<String, Integer> playlistOccur = new HashMap<>();
         for (int i = 0; i < 6; i++) {
-            this.activePlaylist.attemptNewShuffle();
+            this.activePlaylist.statBaseShuffle();
             for (int j = 0; j < 5; j++) {
                 playlistOccur.put(this.activePlaylist.get(j).getTrackName(),
                         playlistOccur.getOrDefault(this.activePlaylist.get(j).getTrackName(), 0) + 1);
@@ -130,9 +130,55 @@ public class MusicController {
      */
     public long timeMyShuffle() {
         long startTime = System.nanoTime();
-        this.activePlaylist.attemptNewShuffle();
+        this.activePlaylist.statBaseShuffle();
         long endTime = System.nanoTime();
         return endTime - startTime;
+    }
+
+    /**
+     * Test method to see the distribution of songs appear in the top 5 in 6
+     * shuffle.
+     * 
+     * @param musicController
+     *                        the musicController with the Playlist.
+     */
+    public static void showCaseDistribution(MusicController musicController) {
+        musicController.trueShuffleShowCase();
+        musicController.spotifyBalanceShuffleShowCase();
+        musicController.newShuffleShowCase();
+    }
+
+    /**
+     * Test method to see what songs are appearing for the entire playlist.
+     * 
+     * @param playlist
+     *                 the playlist you would like to see shuffle.s
+     */
+    public static void seeSongsFromShuffleAlgorithms(Playlist playlist) {
+        Playlist originalPlaylist = playlist.clone();
+        playlist.trueShuffle();
+        System.out.println("True Random\n" + playlist.toShortHandString());
+        playlist = originalPlaylist.clone();
+        playlist.spotifyBalanceShuffle();
+        System.out.println("Balance Random\n" + playlist.toShortHandString());
+        playlist = originalPlaylist.clone();
+        playlist.statBaseShuffle();
+        System.out.println("Stats-Base Random\n" + playlist.toShortHandString());
+    }
+
+    /**
+     * See the runTime of each individual shuffle algorithm.
+     * 
+     * @param musicController
+     *                        the musicController with the Playlist.
+     * 
+     */
+    public static void seeRunTimeShuffleAlgorithms(MusicController musicController) {
+        System.out.println("True shuffle time: " + musicController.timeTrueShuffle());
+        System.out.println("Spotify clone time: " +
+                musicController.timeSpotifyBalanceShuffle());
+        System.out.println("My new proposed shuffle time: " +
+                musicController.timeMyShuffle());
     }
 
     public static void main(String[] args) throws IOException {
@@ -189,23 +235,9 @@ public class MusicController {
             return;
         }
 
-        // spotcloud.trueShuffleShowCase();
-        // spotcloud.spotifyBalanceShuffleShowCase();
-        // spotcloud.newShuffleShowCase();
-        Playlist originalPlaylist = spotcloud.activePlaylist.clone();
-        spotcloud.activePlaylist.trueShuffle();
-        System.out.println("True Random\n" + spotcloud.activePlaylist.toShortHandString());
-        spotcloud.activePlaylist = originalPlaylist.clone();
-        spotcloud.activePlaylist.spotifyBalanceShuffle();
-        System.out.println("Balance Random\n" + spotcloud.activePlaylist.toShortHandString());
-        spotcloud.activePlaylist = originalPlaylist.clone();
-        spotcloud.activePlaylist.attemptNewShuffle();
-        System.out.println(spotcloud.activePlaylist.toShortHandString());
-        // System.out.println("True shuffle time: " + spotcloud.timeTrueShuffle());
-        // System.out.println("Spotify clone time: " +
-        // spotcloud.timeSpotifyBalanceShuffle());
-        // System.out.println("My new proposed shuffle time: " +
-        // spotcloud.timeMyShuffle());
+        showCaseDistribution(spotcloud);
+        // seeSongsFromShuffleAlgorithms(spotcloud.activePlaylist);
+        // seeRunTimeShuffleAlgorithms(spotcloud);
     }
 
 }
