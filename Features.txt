@@ -1,5 +1,9 @@
-- Need to Rebuild Spotify Seperate Artists' song inside Playlist class.
-  - This is to allocate all song from an artist into a iterable state. So we can even out all the song by artist.
-  - HashMap of ArtistNames, LinkedList<Song>, so Hashmap<String, LinkedList<Song>>??
-    - seems like when spotify sort a playlist by artists. The significant is on the first artist only. So maybe I can do 
-      HashMap<String, __> instead of Hashmap<String[],__>
+- my own shuffle algorithm will be using the weighted similarities
+  - consider how to keep song from the same artists relatively different
+  - trying to keep songs a bit more different in terms of everything so it feel "random"
+  - maybe don't even need to separate artists all together
+  - select couple of songs (couple could be calculate base on playlist size)
+  - then find all the songs feel different compare to it, push them all in the first block of the playlist.
+  - then trueshuffle all the songs within the block.
+  - repeat until the entire playlist is shuffled.
+  - since we are also swapping songs here, could create a more random effect as well.
