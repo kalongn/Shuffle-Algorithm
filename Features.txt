@@ -7,3 +7,6 @@
   - then trueshuffle all the songs within the block.
   - repeat until the entire playlist is shuffled.
   - since we are also swapping songs here, could create a more random effect as well.
+
+- Need to rework Statistics shuffle
+- Can try to reorder the result of the java shuffle function to the playlist by reordering it. (Might be a lot of works)
