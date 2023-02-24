@@ -10,3 +10,4 @@
 
 - Need to rework Statistics shuffle
 - Can try to reorder the result of the java shuffle function to the playlist by reordering it. (Might be a lot of works)
+- Make APICall.sh -> A JS File to read and create condensed file for faster operations.
