@@ -409,7 +409,7 @@ public class Song implements Serializable {
         double otherStatsWeighted = roundtoThousand(
                 this.compareAcousticness(otherSong) * 0.15 + this.compareBPM(otherSong) * .25
                         + this.compareDanceability(otherSong) * 0.05 + this.compareEnergy(otherSong) * 0.15
-                        + this.comparePopularity(otherSong) * .10 + this.compareValence(otherSong) * 3);
+                        + this.comparePopularity(otherSong) * .10 + this.compareValence(otherSong) * .3);
         if (genresVal == -1.0) {
             return otherStatsWeighted;
         }
