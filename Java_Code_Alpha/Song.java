@@ -12,7 +12,7 @@ import java.util.Scanner;
  * 
  * @author Ka_Long_Ngai 02/06/2023
  */
-public class Song implements Serializable {
+public class Song implements Serializable, Comparable<Song> {
     private String trackName;
     private String[] artistsName;
     private int popularity;
@@ -466,5 +466,24 @@ public class Song implements Serializable {
                 && this.getBpm() == arg0.getBpm() && this.getValence() == arg0.getValence()
                 && this.getEnergy() == arg0.getEnergy() && this.getDanceability() == arg0.getDanceability()
                 && this.getAcousticness() == arg0.getAcousticness() && this.getGenres().equals(arg0.getGenres());
+    }
+
+    /**
+     * Compare 2 songs object, this is be base on their tempSimValue as we required
+     * this for sorting.
+     * 
+     * @return
+     *         0 indicated the tempSimValue is the same. 1 indicated the
+     *         tempSimValue is greater on songOne, -1 indicated the tempSimValue is
+     *         greater on songTwo.
+     */
+    @Override
+    public int compareTo(Song otherSong) {
+        if (this.tempSimValue == otherSong.getTempSimValue()) {
+            return 0;
+        } else if (this.tempSimValue > otherSong.getTempSimValue()) {
+            return 1;
+        }
+        return -1;
     }
 }
