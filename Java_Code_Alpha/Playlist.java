@@ -1,6 +1,7 @@
 package Java_Code_Alpha;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -120,6 +121,20 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
+     * This method true shuffle part of the playlist base on the given index.
+     * 
+     * @param beginIndex
+     * @param endIndex
+     */
+    public void trueShuffle(int beginIndex, int endIndex) {
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
+        for (int i = endIndex - 1; i > beginIndex; i--) {
+            int rndIndex = rnd.nextInt(i + 1);
+            swapSong(rndIndex, i);
+        }
+    }
+
+    /**
      * Seperate each Artist(The first artist in the artists String array[]) with
      * their respective songs inside the LinkedList.
      * This is assuming all artists name are unique, if they are not. Probably
@@ -215,54 +230,28 @@ public class Playlist extends ArrayList<Song> {
     }
 
     /**
-     * This method is my own implementation of a shuffle algorithm, if the playlist
-     * size is less then 10. It will just do a true shuffle. If not, it will select
-     * 1 single song randomly from the current playlist. Calculate all the
-     * avgSimilarity values for rest of the songs base comparing it with this song.
-     * Then insert the smallest, greatest differences accordingly.
+     * This method shuffle base on statistics of a song. It shuffle the playlist by
+     * true shuffle first. Then "pop" the head of the list off. Then calculate all
+     * the similarity values from this song and the entire playlist. Sort the
+     * playlist. truely shuffle the lower bound (number lower then the "median") and
+     * the upper bound (number higher then the "median"). Then add the upper bound
+     * song interchange into the lower bound so it form a lower -> higher -> lower
+     * -> higher pattern idealy. Finally append the randomly select head song in at
+     * position 0.
      */
     public void statBaseShuffle() {
-        int thisPlayListSize = this.size();
         this.trueShuffle();
-        if (thisPlayListSize < 10) {
-            return;
+        Song randomSelect = this.remove(0);
+        for (Song i : this) {
+            randomSelect.weightedSimilarities(i);
         }
-
-        Playlist newPlaylist = new Playlist(this.getPlaylistTitle());
-        newPlaylist.add(this.remove(0));
-        ArrayList<Double> sortedWeightValues = new ArrayList<>();
-
-        for (int i = 0; i < this.size(); i++) {
-            sortedWeightValues.add(newPlaylist.get(0).weightedSimilarities(this.get(i)));
+        Collections.sort(this);
+        this.trueShuffle(0, (this.size() / 2 + 1));
+        this.trueShuffle(this.size() / 2 + 1, this.size());
+        for (int i = 0; i < this.size() / 2; i++) {
+            this.add(i + 1, this.remove(this.size() - 1 - i));
         }
-
-        int loopAmount = this.size();
-        for (int i = 0; i < loopAmount / 2; i++) {
-            double min = Double.MAX_VALUE, max = Double.MIN_VALUE;
-            int minIndex = -1, maxIndex = -1;
-            for (int j = 0; j < sortedWeightValues.size(); j++) {
-                double currValue = sortedWeightValues.get(j);
-                if (min > currValue) {
-                    min = currValue;
-                    minIndex = j;
-                }
-                if (max < currValue) {
-                    max = currValue;
-                    maxIndex = j;
-                }
-            }
-            int indexAdjust = maxIndex > minIndex ? 1 : 0;
-            newPlaylist.add(this.remove(minIndex));
-            newPlaylist.add(this.remove(maxIndex - indexAdjust));
-            sortedWeightValues.remove(minIndex);
-            sortedWeightValues.remove(maxIndex - indexAdjust);
-        }
-
-        for (int i = newPlaylist.size() - 1; i >= 0; i--) {
-            this.add(0, newPlaylist.remove(i));
-
-        }
-        this.add(thisPlayListSize / 2, this.get(thisPlayListSize - 1));
+        this.add(0, randomSelect);
     }
 
     /**
