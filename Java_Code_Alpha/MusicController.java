@@ -85,9 +85,9 @@ public class MusicController {
     }
 
     /**
-     * Demonstrating an attempt on building a new shuffle algorithm.
+     * Demonstrating an attempt on building a stat base shuffle algorithm.
      */
-    public void newShuffleShowCase() {
+    public void statBaseShuffleShowCase() {
         Playlist originalPlaylist = this.activePlaylist.clone();
         HashMap<String, Integer> playlistOccur = new HashMap<>();
         for (int i = 0; i < 6; i++) {
@@ -128,7 +128,7 @@ public class MusicController {
      * @return
      *         a long variable of the time used in nano-seconds.
      */
-    public long timeMyShuffle() {
+    public long timeStatBaseShuffle() {
         long startTime = System.nanoTime();
         this.activePlaylist.statBaseShuffle();
         long endTime = System.nanoTime();
@@ -145,7 +145,7 @@ public class MusicController {
     public static void showCaseDistribution(MusicController musicController) {
         musicController.trueShuffleShowCase();
         musicController.spotifyBalanceShuffleShowCase();
-        musicController.newShuffleShowCase();
+        musicController.statBaseShuffleShowCase();
     }
 
     /**
@@ -175,10 +175,10 @@ public class MusicController {
      */
     public static void seeRunTimeShuffleAlgorithms(MusicController musicController) {
         System.out.println("True shuffle time: " + musicController.timeTrueShuffle());
-        System.out.println("Spotify clone time: " +
+        System.out.println("Spotify clone shuffle time: " +
                 musicController.timeSpotifyBalanceShuffle());
-        System.out.println("My new proposed shuffle time: " +
-                musicController.timeMyShuffle());
+        System.out.println("Stats-Base shuffle time: " +
+                musicController.timeStatBaseShuffle());
     }
 
     public static void main(String[] args) throws IOException {
@@ -235,9 +235,11 @@ public class MusicController {
             return;
         }
 
-        showCaseDistribution(spotcloud);
+        // showCaseDistribution(spotcloud);
         // seeSongsFromShuffleAlgorithms(spotcloud.activePlaylist);
         // seeRunTimeShuffleAlgorithms(spotcloud);
+        
+        // spotcloud.activePlaylist.statBaseShuffle();
     }
 
 }
