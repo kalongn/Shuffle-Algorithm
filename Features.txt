@@ -13,6 +13,7 @@
   - calculate the weightStat for every song toward that one song.
   - find the median value of the weightStat, anything above will be in a new list, anything below will be in another new list
   - Randomly select one from the above list and then randomly select one from the below list. 
+    - Or true shuffle those 2 list, then just keep getting one from both list instead of random everytime.
   - Continue the previous step until both list is empty.
   - append that to a new playlist and return result.
 - Can try to reorder the result of the java shuffle function to the playlist by reordering it. (Might be a lot of works)
