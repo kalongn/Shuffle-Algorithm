@@ -16,7 +16,7 @@ public class Song implements Serializable {
     private String trackName;
     private String[] artistsName;
     private int popularity;
-    private double bpm, valence, energy, danceability, acousticness;
+    private double bpm, valence, energy, danceability, acousticness, tempSimValue;
     private HashSet<String> genres;
 
     /**
@@ -69,6 +69,7 @@ public class Song implements Serializable {
         this.danceability = danceability;
         this.acousticness = acousticness;
         this.genres = genres;
+        this.tempSimValue = -1.0;
     }
 
     /**
@@ -187,6 +188,14 @@ public class Song implements Serializable {
      */
     public HashSet<String> getGenres() {
         return genres;
+    }
+
+    /**
+     * @return
+     *         the tempSimValue of this Song object.
+     */
+    public double getTempSimValue() {
+        return this.tempSimValue;
     }
 
     /**
@@ -340,53 +349,22 @@ public class Song implements Serializable {
     }
 
     /**
-     * This method compare this reference Song object to the rest of the song inside
-     * playlist. The this reference Song must be apart of the playlist.
-     * 
-     * @param playlist
-     *                 the playlist which this reference Song is apart of.
-     * @return
-     *         a double[] with all the avg similarity values of comparing every
-     *         single other songs within that playlist. The index which after the
-     *         this reference Song appear in that playlist will be subtracted by 1.
-     * @exception IllegalArgumentException
-     *                                     Thrown when the playlist does not contain
-     *                                     this reference Song.
-     */
-    public double[] compareSongToRestPlaylist(Playlist playlist) throws IllegalArgumentException {
-        if (!playlist.contains(this)) {
-            throw new IllegalArgumentException("This song is not apart of this playlist.");
-        }
-        double[] value = new double[playlist.size() - 1];
-        int index = 0;
-        for (int i = 0; i < playlist.size(); i++) {
-            if (playlist.get(i).equals(this)) {
-                index--;
-                continue;
-            }
-            value[index] = this.avgSimilarities(playlist.get(i));
-        }
-        return value;
-    }
-
-    /**
      * This method sums up all the similarity value and takes the avg of all the
-     * similarity values.
+     * similarity values. The value will be stored in the otherSong param's
+     * tempSimValue attribute.
      * 
      * @param otherSong
      *                  The Song object you want to compare with this reference Song
      *                  object.
-     * @return
-     *         A double value range from [0,1] represent a percentage of similarity.
      */
-    public double avgSimilarities(Song otherSong) {
+    public void avgSimilarities(Song otherSong) {
         double genresVal = this.compareGenres(otherSong);
         if (genresVal == -1.0) {
-            return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
+            otherSong.tempSimValue = roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
                     + this.compareDanceability(otherSong) + this.compareEnergy(otherSong)
                     + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 6);
         }
-        return roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
+        otherSong.tempSimValue = roundtoThousand((this.compareAcousticness(otherSong) + this.compareBPM(otherSong)
                 + this.compareDanceability(otherSong) + this.compareEnergy(otherSong) + genresVal
                 + this.comparePopularity(otherSong) + this.compareValence(otherSong)) / 7);
     }
@@ -395,25 +373,23 @@ public class Song implements Serializable {
      * This method return a weight proportion of similarity across all songs,
      * althought all value are set by a developer. This can be modified later or
      * even implement later script create more flexible/random experience on the
-     * weight of each category.
+     * weight of each category. The value will be stored in the otherSong param's
+     * tempSimValue attribute.
      * 
      * @param otherSong
      *                  The Song object you want to compare with this reference Song
      *                  object.
-     * @return
-     *         A double value range from [0,1] represent a percentage of weighted
-     *         similarity.
      */
-    public double weightedSimilarities(Song otherSong) {
+    public void weightedSimilarities(Song otherSong) {
         double genresVal = this.compareGenres(otherSong);
         double otherStatsWeighted = roundtoThousand(
                 this.compareAcousticness(otherSong) * 0.15 + this.compareBPM(otherSong) * .25
                         + this.compareDanceability(otherSong) * 0.05 + this.compareEnergy(otherSong) * 0.15
                         + this.comparePopularity(otherSong) * .10 + this.compareValence(otherSong) * .3);
         if (genresVal == -1.0) {
-            return otherStatsWeighted;
+            otherSong.tempSimValue = otherStatsWeighted;
         }
-        return roundtoThousand(genresVal * .4 + otherStatsWeighted * .6);
+        otherSong.tempSimValue = roundtoThousand(genresVal * .4 + otherStatsWeighted * .6);
     }
 
     /**
