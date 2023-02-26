@@ -193,7 +193,7 @@ public class MusicController {
             inStream.close();
             System.out.println("Detected previous Playlist.\n");
             System.out.print("Do you want to use this as your data sample? (Y/N): ");
-            String input = scanner.nextLine();
+            String input = scanner.nextLine().toUpperCase();
             if (input.equals("N")) {
                 throw new Exception("expected");
             }
