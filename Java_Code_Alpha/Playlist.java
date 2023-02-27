@@ -248,8 +248,8 @@ public class Playlist extends ArrayList<Song> {
         Collections.sort(this);
         this.trueShuffle(0, (this.size() / 2 + 1));
         this.trueShuffle(this.size() / 2 + 1, this.size());
-        for (int i = 0; i < this.size() / 2; i++) {
-            this.add(i + 1, this.remove(this.size() - 1 - i));
+        for (int i = 0; i < this.size() ; i+=2) {
+            this.add(i, this.remove(this.size() - 1));
         }
         this.add(0, randomSelect);
     }
