@@ -1,2 +1,4 @@
 - Can try to reorder the result of the java shuffle function to the playlist by reordering it. (Might be a lot of works)
+    - Need to modified Song class to include its spotify ID
+    - Read Spotify Update Playlist API docs
 - Make APICall.sh -> A JS File to read and create condensed file for faster operations.
