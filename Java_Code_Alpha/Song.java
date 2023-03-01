@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Ka_Long_Ngai 02/06/2023
  */
 public class Song implements Serializable, Comparable<Song> {
-    private String trackName;
+    private String trackName, trackID;
     private String[] artistsName;
     private int popularity;
     private double bpm, valence, energy, danceability, acousticness, tempSimValue;
@@ -25,6 +25,8 @@ public class Song implements Serializable, Comparable<Song> {
      * this song, the valence of this song, the energy of this song, the
      * danceability of this song and the acousticness of this song.
      * 
+     * @param trackID
+     *                     The id of this Song object, given from Spotify
      * @param trackName
      *                     The name of this Song object, String.
      * @param artistsName
@@ -57,9 +59,11 @@ public class Song implements Serializable, Comparable<Song> {
      *      "https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track">Track
      *      JSON documentation</a>
      */
-    public Song(String trackName, String[] artistsName, int popularity, double bpm, double valence, double energy,
+    public Song(String trackID, String trackName, String[] artistsName, int popularity, double bpm, double valence,
+            double energy,
             double danceability,
             double acousticness, HashSet<String> genres) {
+        this.trackID = trackID;
         this.trackName = trackName;
         this.artistsName = artistsName;
         this.popularity = popularity;
@@ -114,7 +118,16 @@ public class Song implements Serializable, Comparable<Song> {
         }
         scanner.close();
         songFile.delete();
-        return new Song(trackName, artistsName, popularity, bpm, valence, energy, danceability, acousticness, genres);
+        return new Song(songID, trackName, artistsName, popularity, bpm, valence, energy, danceability, acousticness,
+                genres);
+    }
+
+    /**
+     * @return
+     *         The track id of this Song object.
+     */
+    public String getTrackID() {
+        return trackID;
     }
 
     /**
@@ -436,8 +449,8 @@ public class Song implements Serializable, Comparable<Song> {
      */
     @Override
     protected Song clone() {
-        return new Song(this.getTrackName(), this.getArtistsName().clone(), this.getPopularity(), this.getBpm(),
-                this.getValence(), this.getEnergy(), this.getDanceability(), this.getAcousticness(),
+        return new Song(this.getTrackID(), this.getTrackName(), this.getArtistsName().clone(), this.getPopularity(),
+                this.getBpm(), this.getValence(), this.getEnergy(), this.getDanceability(), this.getAcousticness(),
                 new HashSet<String>(this.getGenres()));
     }
 
@@ -462,7 +475,8 @@ public class Song implements Serializable, Comparable<Song> {
                 return false;
             }
         }
-        return this.getTrackName().equals(arg0.getTrackName()) && this.getPopularity() == arg0.getPopularity()
+        return this.trackID.equals(arg0.getTrackID()) && this.getTrackName().equals(arg0.getTrackName())
+                && this.getPopularity() == arg0.getPopularity()
                 && this.getBpm() == arg0.getBpm() && this.getValence() == arg0.getValence()
                 && this.getEnergy() == arg0.getEnergy() && this.getDanceability() == arg0.getDanceability()
                 && this.getAcousticness() == arg0.getAcousticness() && this.getGenres().equals(arg0.getGenres());
