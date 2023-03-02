@@ -1,5 +1,7 @@
 package Java_Code_Alpha;
 
+import java.io.FileWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -181,11 +183,31 @@ public class MusicController {
                 musicController.timeStatBaseShuffle());
     }
 
+    /**
+     * This method call the shufflePlaylist function and shuffle the playlist. Then
+     * write the result into a new file call "shuffleResultPlaylist.txt".
+     * 
+     * @param option
+     *               An integer between 1-3, 1: true shuffle, 2: spotify
+     *               balance shuffle, 3: stat-based shuffle.
+     * @see Playlist#shufflePlaylist
+     */
     public void shuffleAndOutput(int option) {
+        Playlist temp = this.activePlaylist.clone();
         this.activePlaylist.shufflePlaylist(option);
-        for(Song i : this.activePlaylist) {
-            System.out.println(i.getTrackID());
+        File file = new File("shuffleResultPlaylist.txt");
+        try {
+            file.createNewFile();
+            FileWriter writer = new FileWriter("shuffleResultPlaylist.txt");
+            for (Song i : this.activePlaylist) {
+                writer.write(i.getTrackID() + "\n");
+            }
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("File input output interrupted.");
+            ex.printStackTrace();
         }
+        this.activePlaylist = temp.clone();
     }
 
     public static void main(String[] args) throws IOException {
