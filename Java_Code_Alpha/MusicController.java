@@ -199,9 +199,12 @@ public class MusicController {
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter("shuffleResultPlaylist.txt");
-            writer.write(this.activePlaylist.getPlaylistID());
-            for (Song i : this.activePlaylist) {
-                writer.write("spotify:track:" + i.getTrackID() + ",");
+            writer.write(this.activePlaylist.getPlaylistID() + "\n");
+            for (int i = 0; i < this.activePlaylist.size(); i++) {
+                writer.write("spotify:track:" + this.activePlaylist.get(i).getTrackID() + ",");
+                if ((i + 1) % 100 == 0) {
+                    writer.write("\n");
+                }
             }
             writer.close();
         } catch (IOException ex) {
