@@ -200,7 +200,7 @@ public class MusicController {
             file.createNewFile();
             FileWriter writer = new FileWriter("shuffleResultPlaylist.txt");
             for (Song i : this.activePlaylist) {
-                writer.write(i.getTrackID() + "\n");
+                writer.write("spotify:track:"+ i.getTrackID() + ",");
             }
             writer.close();
         } catch (IOException ex) {
