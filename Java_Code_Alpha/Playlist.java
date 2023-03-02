@@ -248,10 +248,34 @@ public class Playlist extends ArrayList<Song> {
         Collections.sort(this);
         this.trueShuffle(0, (this.size() / 2 + 1));
         this.trueShuffle(this.size() / 2 + 1, this.size());
-        for (int i = 0; i < this.size() ; i+=2) {
+        for (int i = 0; i < this.size(); i += 2) {
             this.add(i, this.remove(this.size() - 1));
         }
         this.add(0, randomSelect);
+    }
+
+    /**
+     * Shuffle the current playlist using one of 3 option.
+     * 
+     * @param shuffleOption
+     *                      An integer between 1-3, 1: true shuffle, 2: spotify
+     *                      balance shuffle, 3: stat-based shuffle.
+     * @throws IllegalArgumentException
+     *                                  Thrown if the input is not within the 1-3
+     *                                  range.
+     */
+    public void shufflePlaylist(int shuffleOption) throws IllegalArgumentException {
+        switch (shuffleOption) {
+            case 1:
+                this.trueShuffle();
+            case 2:
+                this.spotifyBalanceShuffle();
+            case 3:
+                this.statBaseShuffle();
+            default:
+                throw new IllegalArgumentException(
+                        "The input is not a shuffle option. Please input an integer between 1-3.");
+        }
     }
 
     /**
