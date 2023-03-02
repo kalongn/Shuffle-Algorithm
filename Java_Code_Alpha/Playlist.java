@@ -18,15 +18,21 @@ import java.util.LinkedList;
  */
 public class Playlist extends ArrayList<Song> {
 
-    private String playlistTitle;
+    private String playlistTitle, playlistID;
 
     /**
-     * Create a Playlist object, with an additional playlistTitle field variable.
+     * Create a Playlist object, with additional variables, playlistID,
+     * playlistTitle field variable.
+     * 
+     * @param playlistID
+     *                      The playlist ID of the playlist (spotify ID for the
+     *                      playlist.)
      * 
      * @param playlistTitle
      *                      The name of this playlist, String.
      */
-    public Playlist(String playlistTitle) {
+    public Playlist(String playlistID, String playlistTitle) {
+        this.playlistID = playlistID;
         this.playlistTitle = playlistTitle;
     }
 
@@ -68,7 +74,7 @@ public class Playlist extends ArrayList<Song> {
             throw new IllegalArgumentException("Invalid playlist ID.");
         }
         String playlistTitle = scanner.nextLine();
-        Playlist returnPlaylist = new Playlist(playlistTitle);
+        Playlist returnPlaylist = new Playlist(playListID, playlistTitle);
         while (scanner.hasNextLine()) {
             Song song = Song.readFromSongTxt(scanner.nextLine());
             returnPlaylist.add(song);
@@ -84,6 +90,14 @@ public class Playlist extends ArrayList<Song> {
      */
     public String getPlaylistTitle() {
         return this.playlistTitle;
+    }
+
+    /**
+     * @return
+     *         the playlist ID of this playlist object.
+     */
+    public String getPlaylistID() {
+        return this.playlistID;
     }
 
     /**
@@ -320,7 +334,7 @@ public class Playlist extends ArrayList<Song> {
      */
     @Override
     public Playlist clone() {
-        Playlist clone = new Playlist(this.getPlaylistTitle());
+        Playlist clone = new Playlist(this.getPlaylistID(), this.getPlaylistTitle());
         for (Song i : this) {
             clone.add(i.clone());
         }
