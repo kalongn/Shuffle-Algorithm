@@ -181,6 +181,13 @@ public class MusicController {
                 musicController.timeStatBaseShuffle());
     }
 
+    public void shuffleAndOutput(int option) {
+        this.activePlaylist.shufflePlaylist(option);
+        for(Song i : this.activePlaylist) {
+            System.out.println(i.getTrackID());
+        }
+    }
+
     public static void main(String[] args) throws IOException {
 
         MusicController spotcloud = new MusicController();
@@ -235,10 +242,12 @@ public class MusicController {
             return;
         }
 
+        spotcloud.shuffleAndOutput(1);
+
         // showCaseDistribution(spotcloud);
         // seeSongsFromShuffleAlgorithms(spotcloud.activePlaylist);
         // seeRunTimeShuffleAlgorithms(spotcloud);
-        
+
         // spotcloud.activePlaylist.statBaseShuffle();
     }
 
