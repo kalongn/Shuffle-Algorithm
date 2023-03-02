@@ -268,10 +268,13 @@ public class Playlist extends ArrayList<Song> {
         switch (shuffleOption) {
             case 1:
                 this.trueShuffle();
+                break;
             case 2:
                 this.spotifyBalanceShuffle();
+                break;
             case 3:
                 this.statBaseShuffle();
+                break;
             default:
                 throw new IllegalArgumentException(
                         "The input is not a shuffle option. Please input an integer between 1-3.");
