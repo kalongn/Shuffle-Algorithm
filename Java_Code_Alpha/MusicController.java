@@ -199,13 +199,17 @@ public class MusicController {
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter("shuffleResultPlaylist.txt");
+            String output = "";
             writer.write(this.activePlaylist.getPlaylistID() + "\n");
             for (int i = 0; i < this.activePlaylist.size(); i++) {
-                writer.write("spotify:track:" + this.activePlaylist.get(i).getTrackID() + ",");
+                output += "spotify:track:" + this.activePlaylist.get(i).getTrackID() + ",";
                 if ((i + 1) % 100 == 0) {
-                    writer.write("\n");
+                    output = output.substring(0, output.length() - 1);
+                    output+=("\n");
                 }
             }
+            output = output.substring(0, output.length() - 1);
+            writer.write(output);
             writer.close();
         } catch (IOException ex) {
             System.out.println("File input output interrupted.");
