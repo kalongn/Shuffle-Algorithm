@@ -205,11 +205,11 @@ public class MusicController {
                 output += "spotify:track:" + this.activePlaylist.get(i).getTrackID() + ",";
                 if ((i + 1) % 100 == 0) {
                     output = output.substring(0, output.length() - 1);
-                    output+=("\n");
+                    output += ("\n");
                 }
             }
             output = output.substring(0, output.length() - 1);
-            writer.write(output);
+            writer.write(output + "\n");
             writer.close();
         } catch (IOException ex) {
             System.out.println("File input output interrupted.");
