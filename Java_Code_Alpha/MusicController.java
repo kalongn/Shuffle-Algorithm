@@ -243,12 +243,13 @@ public class MusicController {
             newPlaylist = true;
             System.out.print("Enter Spotify playlist URL: ");
             String playlistID = scanner.nextLine();
-            if (playlistID.length() != 76 || !playlistID.startsWith("https://open.spotify.com/playlist/")) {
+            if (!playlistID.startsWith("https://open.spotify.com/playlist/")) {
                 System.out.println("Invalid URL.");
                 scanner.close();
                 return;
             }
             playlistID = playlistID.substring(34, 56);
+            System.out.println(playlistID);
             try {
                 Runtime.getRuntime().exec(new String[] { "bash", "./RetrievePlaylistAPICall.sh", playlistID }).waitFor();
             } catch (InterruptedException e) {
