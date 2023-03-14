@@ -29,7 +29,7 @@ app.get('/login', (req, res) => {
     const state = generateRandomString(16);
     res.cookie(stateKey, state);
 
-    const scope = 'playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public';
+    const scope = 'playlist-modify-private playlist-modify-public';
 
     const queryParams = querystring.stringify({
         client_id: CLIENT_ID,
@@ -100,7 +100,7 @@ app.get('/refresh_token', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Express app listening at http://localhost:${port}`);
+    //console.log(`Express app listening at http://localhost:${port}`);
 });
 
 open(`http://localhost:${port}/login`);
