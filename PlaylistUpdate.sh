@@ -1,7 +1,7 @@
 #!/bin/bash
 
 returnToken() {
-    node fetchToken.js
+    node authoToken.js
 }
 
 updatePlayList() {
@@ -13,7 +13,7 @@ updatePlayList() {
 
     curl --request PUT \
         --url $URL \
-        --header 'Authorization: Bearer'$token \
+        --header 'Authorization: Bearer '$token \
         --header 'Content-Type: application/json' > "update$playlist_id.JSON" \
         --data '{
         }'
