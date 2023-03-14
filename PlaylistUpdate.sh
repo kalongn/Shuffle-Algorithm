@@ -14,7 +14,7 @@ updatePlayList() {
     curl --request PUT \
         --url $URL \
         --header 'Authorization: Bearer '$token \
-        --header 'Content-Type: application/json' > "update$playlist_id.JSON" \
+        --header 'Content-Type: application/json' > "updatePlaylist.JSON" \
         --data '{
         }'
     #
