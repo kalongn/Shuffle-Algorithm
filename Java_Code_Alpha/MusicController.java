@@ -249,7 +249,6 @@ public class MusicController {
                 return;
             }
             playlistID = playlistID.substring(34, 56);
-            System.out.println(playlistID);
             try {
                 Runtime.getRuntime().exec(new String[] { "bash", "./RetrievePlaylistAPICall.sh", playlistID }).waitFor();
             } catch (InterruptedException e) {
