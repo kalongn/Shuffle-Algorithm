@@ -1,7 +1,7 @@
 #!/bin/bash
 
 returnToken() {
-    node authoToken.js
+    node fetchAuthoToken.js
 }
 
 updatePlayList() {

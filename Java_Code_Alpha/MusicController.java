@@ -250,7 +250,7 @@ public class MusicController {
             }
             playlistID = playlistID.substring(34, 56);
             try {
-                Runtime.getRuntime().exec(new String[] { "bash", "./APICall.sh", playlistID }).waitFor();
+                Runtime.getRuntime().exec(new String[] { "bash", "./RetrievePlaylistAPICall.sh", playlistID }).waitFor();
             } catch (InterruptedException e) {
                 System.out.println("Thread interrupted.");
                 scanner.close();
@@ -274,7 +274,7 @@ public class MusicController {
 
         spotcloud.shuffleAndOutput(1);
         try {
-            Runtime.getRuntime().exec(new String[] { "bash", "./PlaylistUpdate.sh" }).waitFor();
+            Runtime.getRuntime().exec(new String[] { "bash", "./PlaylistUpdateAPICall.sh" }).waitFor();
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted.");
             scanner.close();

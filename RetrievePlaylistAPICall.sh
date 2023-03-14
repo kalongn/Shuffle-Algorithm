@@ -6,7 +6,7 @@ trimQuotes() {
 }
 
 returnToken() {
-  node fetchToken.js
+  node fetchCLIToken.js
 }
 
 getPlaylistJSON() {
