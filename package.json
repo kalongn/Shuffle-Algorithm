@@ -4,7 +4,8 @@
   "description": "Inspired from a video by [gabi belle](https://www.youtube.com/@itsgabibelle) on [Why Spotify Playlists Never Truly Shuffle](https://youtu.be/OdLyKETk5o0)   This following link give me a sense of what information Spotify collected/calculated for a single song. [LINK](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis) <br>",
   "main": "fetchToken.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon authoToken.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
     "axios": "^1.2.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "nodemon": "^2.0.21",
     "qs": "^6.11.0"
   }
 }
