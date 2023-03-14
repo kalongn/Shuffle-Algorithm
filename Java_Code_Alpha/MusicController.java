@@ -275,6 +275,10 @@ public class MusicController {
         spotcloud.shuffleAndOutput(1);
         try {
             Runtime.getRuntime().exec(new String[] { "bash", "./PlaylistUpdateAPICall.sh" }).waitFor();
+            File outputTXT = new File("shuffleResultPlaylist.txt");
+            File outputJSON = new File("updatePlaylist.JSON");
+            outputJSON.delete();
+            outputTXT.delete();
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted.");
             scanner.close();
@@ -283,7 +287,7 @@ public class MusicController {
             System.out.println("Invalid URL.");
             e.printStackTrace();
         }
-        // showCaseDistribution(spotcloud);
+        // showCaseDistribution(spotcloud);5
         // seeSongsFromShuffleAlgorithms(spotcloud.activePlaylist);
         // seeRunTimeShuffleAlgorithms(spotcloud);
         // spotcloud.activePlaylist.statBaseShuffle();
