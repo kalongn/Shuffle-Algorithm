@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const querystring = require('querystring');
 const axios = require('axios');
+const open = require('open');
 const app = express();
 const port = 8888;
 
@@ -59,8 +60,10 @@ app.get('/callback', (req, res) => {
     })
         .then(response => {
             if (response.status === 200) {
-                res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
+                // res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
+                res.send("Process completed, you may close this webpage.");
                 console.log(response.data.access_token);
+                process.exit(0);
             } else {
                 res.send(response);
             }
@@ -86,8 +89,10 @@ app.get('/refresh_token', (req, res) => {
         },
     })
         .then(response => {
-            res.send(response.data);
+            // res.send(response.data);
+            res.send("Process completed, you may close this webpage.");
             console.log(response.data.accesss_token);
+            process.exit(0);
         })
         .catch(error => {
             res.send(error);
@@ -97,3 +102,5 @@ app.get('/refresh_token', (req, res) => {
 app.listen(port, () => {
     console.log(`Express app listening at http://localhost:${port}`);
 });
+
+open(`http://localhost:${port}/login`);
