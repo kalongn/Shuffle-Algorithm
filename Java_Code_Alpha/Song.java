@@ -463,6 +463,9 @@ public class Song implements Serializable, Comparable<Song> {
      */
     @Override
     public boolean equals(Object arg) {
+        if(this == arg) {
+            return true;
+        }
         if (!(arg instanceof Song)) {
             return false;
         }

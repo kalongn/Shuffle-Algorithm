@@ -351,6 +351,9 @@ public class Playlist extends ArrayList<Song> {
      */
     @Override
     public boolean equals(Object arg0) {
+        if(this == arg0) {
+            return true;
+        }
         if (!(arg0 instanceof Playlist)) {
             return false;
         }
