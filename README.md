@@ -1,6 +1,7 @@
 # Song Shuffling Algorithm using Java. <br>
-## Sorta Works now.  <br>
-Currently, the program requires a .env file which you will have to get from a spotify app, and install all the dependenceis via npm install.   <br>   
+Currently, the program requires a .env file which you will have to get from a spotify app, and install all the dependenceis via npm install.   <br>
+
+In addition, the playlist can only have a maximum of 100 songs and must be set to public.
 
 
 Inspired from a video by [gabi belle](https://www.youtube.com/@itsgabibelle) on [Why Spotify Playlists Never Truly Shuffle](https://youtu.be/OdLyKETk5o0)  
