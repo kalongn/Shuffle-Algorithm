@@ -14,22 +14,22 @@ updatePlayList() {
     curl --request PUT \
         --url $URL \
         --header 'Authorization: Bearer '$token \
-        --header 'Content-Type: application/json' > "updatePlaylist.JSON" \
+        --header 'Content-Type: application/json' \
         --data '{
-        }'
+        }' >"updatePlaylist.JSON"
     #
 }
 
 #program begin here
 filename="shuffleResultPlaylist.txt"
-read -r playlist_id<$filename
+read -r playlist_id <$filename
 firstLine=false
 auth_token=$(returnToken)
 while read line; do
-    if $firstLine ; then
+    if $firstLine; then
         $(updatePlayList $auth_token $playlist_id $line)
     fi
     firstLine=true
-done < $filename
+done <$filename
 
 exit 0
