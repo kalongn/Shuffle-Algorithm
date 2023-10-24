@@ -114,7 +114,11 @@ public class Song implements Serializable, Comparable<Song> {
         scanner.nextLine();
         HashSet<String> genres = new HashSet<>();
         while (scanner.hasNextLine()) {
-            genres.add(scanner.nextLine());
+            String thisLine = scanner.nextLine();
+            if (thisLine.equals("No Genres Avaliable")) {
+                break;
+            }
+            genres.add(thisLine);
         }
         scanner.close();
         songFile.delete();
@@ -432,9 +436,13 @@ public class Song implements Serializable, Comparable<Song> {
         returnStr += "\nThe energy of this song is " + this.getEnergy() + " out of 1.";
         returnStr += "\nThe danceability of this song is " + this.getDanceability() + " out of 1.";
         returnStr += "\nThe acousticness of this song is " + this.getAcousticness() + " out of 1.";
-        returnStr += "\nThis song may include the following genres: ";
-        for (String i : this.getGenres()) {
-            returnStr += "\n- " + i;
+        if (this.getGenres().size() == 0) {
+            returnStr += "\nThis song does not have any listed genres.";
+        } else {
+            returnStr += "\nThis song may include the following genres: ";
+            for (String i : this.getGenres()) {
+                returnStr += "\n- " + i;
+            }
         }
         returnStr += "\n-------------------------------------------------------------";
         return returnStr;
@@ -463,7 +471,7 @@ public class Song implements Serializable, Comparable<Song> {
      */
     @Override
     public boolean equals(Object arg) {
-        if(this == arg) {
+        if (this == arg) {
             return true;
         }
         if (!(arg instanceof Song)) {

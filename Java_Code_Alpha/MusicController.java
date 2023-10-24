@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.HashMap;
+
 /**
  * This MusicController Class allowing us to control a Playlist by directly
  * giving a Spotify playlist URL. This will call the APICall.sh which get the
@@ -248,11 +249,11 @@ public class MusicController {
                 return;
             }
             playlistID = playlistID.replace("https://open.spotify.com/playlist/", "");
-            if(playlistID.indexOf("?") != -1) {
+            if (playlistID.indexOf("?") != -1) {
                 playlistID = playlistID.substring(0, playlistID.indexOf("?"));
             }
             try {
-                Runtime.getRuntime().exec(new String[] { "bash", "./RetrievePlaylistAPICall.sh", playlistID })
+                Runtime.getRuntime().exec(new String[] { "node", "./RetrievePlaylistAPICall.js", playlistID })
                         .waitFor();
             } catch (InterruptedException e) {
                 System.out.println("Thread interrupted.");
@@ -290,7 +291,7 @@ public class MusicController {
             System.out.println("Invalid URL.");
             e.printStackTrace();
         }
-        // showCaseDistribution(spotcloud);5
+        // showCaseDistribution(spotcloud);
         // seeSongsFromShuffleAlgorithms(spotcloud.activePlaylist);
         // seeRunTimeShuffleAlgorithms(spotcloud);
         // spotcloud.activePlaylist.statBaseShuffle();
